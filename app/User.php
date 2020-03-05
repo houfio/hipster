@@ -26,4 +26,14 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     {
         return $this->belongsTo(Group::class, 'group_id', 'id');
     }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class, 'role_id', 'id');
+    }
+
+    public function authorize(string $role)
+    {
+        return $this->role->name === $role|| abort(401, 'This action is unauthorized.');
+    }
 }
