@@ -13,7 +13,7 @@ $factory->define(Group::class, function (Faker $faker) {
     $formattedPeriod = sprintf("%02d", $period);
 
     $data = [
-        'period' => $period,
+        'period_id' => $period,
         'name' => "42INSO$formattedPeriod$letter"
     ];
 

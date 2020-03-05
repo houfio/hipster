@@ -10,6 +10,7 @@ $factory->define(Period::class, function (Faker $faker) {
     static $period = 1;
 
     $data = [
+        'period' => $period,
         'semester' => intval(ceil($period / 2))
     ];
 

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Period extends Model
 {
-    public $timestamps = true;
+    public $timestamps = false;
 
     protected $table = 'periods';
     protected $primaryKey = 'id';
