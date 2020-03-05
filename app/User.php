@@ -12,6 +12,8 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 {
     use Authenticatable, Authorizable;
 
+    public $timestamps = true;
+
     protected $table = 'users';
     protected $primaryKey = 'id';
 
