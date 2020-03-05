@@ -14,10 +14,11 @@ class CreateGroupsTable extends Migration
     public function up()
     {
         Schema::create('groups', function (Blueprint $table) {
-            $table->integer('id')->unsigned()->primary();
+            $table->integer('id')->unsigned()->autoIncrement();
             $table->string('name', 45);
             $table->integer('period')->unsigned();
             $table->foreign('period')->references('id')->on('periods');
+            $table->timestamps();
         });
     }
 

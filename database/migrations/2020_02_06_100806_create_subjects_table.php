@@ -14,14 +14,15 @@ class CreateSubjectsTable extends Migration
     public function up()
     {
         Schema::create('subjects', function (Blueprint $table) {
-            $table->integer('id')->unsigned()->primary();
+            $table->bigIncrements('id');
             $table->string('name', 45);
             $table->string('description');
             $table->integer('credits')->unsigned();
-            $table->integer('period')->unsigned();
-            $table->integer('exam_id')->unsigned();
+            $table->bigInteger('period');
+            $table->bigInteger('exam_id');
             $table->foreign('period')->references('id')->on('periods');
             $table->foreign('exam_id')->references('id')->on('exams');
+            $table->timestamps();
         });
     }
 

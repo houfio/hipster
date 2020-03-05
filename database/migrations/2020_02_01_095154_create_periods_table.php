@@ -14,9 +14,9 @@ class CreatePeriodsTable extends Migration
     public function up()
     {
         Schema::create('periods', function (Blueprint $table) {
-            $table->integer('id')->unsigned()->primary();
+            $table->integer('id')->unsigned()->autoIncrement();
             $table->integer('semester')->unsigned();
-            $table->foreign('semester')->references('semester')->on('semesters');
+            $table->timestamps();
         });
     }
 

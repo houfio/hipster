@@ -14,13 +14,14 @@ class CreateUserExamsTable extends Migration
     public function up()
     {
         Schema::create('user_exams', function (Blueprint $table) {
-            $table->integer('id')->unsigned()->primary();
-            $table->integer('user_id')->unsigned();
-            $table->integer('exam_id')->unsigned();
+            $table->bigIncrements('id');
+            $table->bigInteger('user_id');
+            $table->bigInteger('exam_id');
             $table->decimal('grade', 3, 1)->nullable();
             $table->string('file')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('exam_id')->references('id')->on('exams');
+            $table->timestamps();
         });
     }
 

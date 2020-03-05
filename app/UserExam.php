@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserExam extends Model
 {
+    public $timestamps = true;
+
     protected $primaryKey = 'id';
     protected $table = 'user_exams';
 
