@@ -15,7 +15,7 @@ class Subject extends Model
     {
         return $this->belongsToMany(Teacher::class, 'subject_teachers', 'teacher_id');
     }
-    
+
     public function exam()
     {
         return $this->hasOne(Exam::class, 'exam_id', 'id');
