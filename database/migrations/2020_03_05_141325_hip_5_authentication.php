@@ -15,6 +15,7 @@ class Hip5Authentication extends Migration
         });
 
         Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('role');
             $table->integer('role_id')->unsigned();
             $table->rememberToken();
             $table->foreign('role_id')->references('id')->on('roles');
@@ -25,6 +26,7 @@ class Hip5Authentication extends Migration
     {
         Schema::dropIfExists('roles');
         Schema::table('users', function (Blueprint $table) {
+            $table->integer('role');
             $table->dropColumn('role_id');
             $table->dropRememberToken();
         });
