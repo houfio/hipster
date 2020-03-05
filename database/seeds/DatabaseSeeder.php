@@ -10,7 +10,6 @@ class DatabaseSeeder extends Seeder
         Artisan::call('migrate:fresh');
 
         $this->call([
-            UsersSeeder::class,
             PeriodsSeeder::class,
             GroupsSeeder::class
         ]);

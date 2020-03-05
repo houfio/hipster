@@ -8,6 +8,7 @@
     ],
     "license": "MIT",
     "require": {
+        "doctrine/dbal": "^2.10",
         "laravel/framework": "^7.0",
         "laravel/tinker": "^2.2.0"
     },
