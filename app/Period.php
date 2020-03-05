@@ -15,9 +15,4 @@ class Period extends Model
     {
         return $this->hasMany(Group::class, 'period', 'id');
     }
-
-    public function semester()
-    {
-        return $this->belongsTo(Semester::class, 'semester', 'semester');
-    }
 }
