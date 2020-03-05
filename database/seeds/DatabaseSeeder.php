@@ -11,7 +11,8 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             PeriodsSeeder::class,
-            GroupsSeeder::class
+            GroupsSeeder::class,
+            TeachersSeeder::class
         ]);
     }
 }
