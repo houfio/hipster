@@ -8,7 +8,7 @@ class HomeController extends Controller
 {
     public function index(Request $request)
     {
-        $request->user()->authorize('manager');
+        $request->user()->authorize('user');
 
         return view('home');
     }
