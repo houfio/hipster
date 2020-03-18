@@ -1,5 +1,5 @@
-{{ $teacher }}
-<form method="POST">
+<form method="POST" action="{{ action('TeacherController@create') }}">
+    @csrf
     <label for="first_name">Voornaam:</label><br>
     <input type="text" value="{{ $teacher->first_name }}" id="first_name" name="first_name"><br>
     <label for="last_name">Achternaam:</label><br>
@@ -8,4 +8,5 @@
     <input type="email" value="{{ $teacher->email }}" id="email" name="email"><br>
     <label for="abbreviation">Afkorting:</label><br>
     <input type="text" value="{{ $teacher->abbreviation }}" id="abbreviation" name="abbreviation">
+    <input type="submit" id="create_teacher" name="create_teacher">
 </form>
