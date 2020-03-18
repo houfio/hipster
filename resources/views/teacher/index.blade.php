@@ -20,7 +20,7 @@
                 <button type="button" class="btn btn-secondary">Create</button>
               </div>
             </div>
-            <ul class="list-group" style="margin-top: 1rem">
+            <ul class="list-group" style="margin-top: 1rem; margin-bottom: 1rem;">
               @foreach($teachers as $teacher)
                 <li class="list-group-item">
                   {{ $teacher->first_name }} {{ $teacher->last_name }}
@@ -28,6 +28,11 @@
                 </li>
               @endforeach
             </ul>
+            <div class="btn-group mr-2" role="group">
+              @for($i = 0; $i < $pages; $i++)
+                <a href="{{ url("/teacher?page=$i") }}" class="btn btn-secondary">{{ $i }}</a>
+              @endfor
+            </div>
           </div>
         </div>
       </div>

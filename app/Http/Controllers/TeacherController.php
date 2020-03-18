@@ -6,16 +6,22 @@ use App\Http\Requests\TeacherRequest;
 use App\Teacher;
 use Exception;
 use Illuminate\View\View;
+use Illuminate\Http\Request;
 
 class TeacherController extends Controller
 {
     /**
+     * @param Request $request
      * @return View
      */
-    public function index()
+    public function index(Request $request)
     {
+        $pages = Teacher::all()->count() / 10;
+        $page = (int) $request->query('page');
+
         return view('teacher.index', [
-            'teachers' => Teacher::all()
+            'teachers' => Teacher::offset($page * 10)->limit(10)->get(),
+            'pages' => $pages
         ]);
     }
 
