@@ -14,7 +14,6 @@ $factory->define(Teacher::class, function (Faker $faker) {
         'first_name' => $firstName,
         'last_name' => $lastName,
         'email' => strtolower("$firstName[0]." . str_replace(' ', '.', $lastName) . "@docent.avans.nl"),
-        'abbreviation' => strtoupper($faker->text(4)),
-        'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'
+        'abbreviation' => strtoupper($faker->text(4))
     ];
 });
