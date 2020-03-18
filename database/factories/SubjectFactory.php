@@ -10,6 +10,7 @@ $factory->define(Subject::class, function (Faker $faker) {
     return [
         'name' => 'Willekeurig vak',
         'description' => $faker->text(255),
-        'credits' => $faker->numberBetween(1, 4)
+        'credits' => $faker->numberBetween(1, 4),
+        'period_id' => $faker->numberBetween(1, 16)
     ];
 });

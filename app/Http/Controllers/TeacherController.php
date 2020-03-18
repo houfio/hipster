@@ -81,6 +81,7 @@ class TeacherController extends Controller
     /**
      * @param TeacherRequest $request
      * @param Teacher $teacher
+     * @return Redirector
      * @return View
      */
     public function update(TeacherRequest $request, Teacher $teacher)
@@ -94,9 +95,8 @@ class TeacherController extends Controller
 
         $teacher->save();
 
-        return view('teacher.index', [
-            'message' => 'Teacher updated'
-        ]);
+        $request->session()->flash('status', "Teacher $teacher->first_name $teacher->last_name was updated");
+        return redirect("/teacher/$teacher->id/edit");
     }
 
     /**

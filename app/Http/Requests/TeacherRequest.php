@@ -8,7 +8,7 @@ class TeacherRequest extends FormRequest
 {
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     public function rules()
@@ -16,8 +16,8 @@ class TeacherRequest extends FormRequest
         return [
             'first_name' => 'required|max:30',
             'last_name' => 'required|max:60',
-            'email' => 'required|unique:teachers,email|max:255',
-            'abbreviation' => 'required|unique:abbreviation,teachers|max:4'
+            'email' => "required|unique:teachers,email,{$this->route('teacher')->id}|max:255",
+            'abbreviation' => "required|unique:teachers,abbreviation,{$this->route('teacher')->id}|max:4"
         ];
     }
 
