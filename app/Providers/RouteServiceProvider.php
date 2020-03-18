@@ -16,7 +16,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         parent::boot();
 
-        Route::model('Teacher', Teacher::class);
+        Route::model('teacher', Teacher::class);
     }
 
     public function map()

@@ -9,4 +9,4 @@ Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::get('/', 'HomeController@index');
 
-Route::resource('Teacher', 'TeacherController');
+Route::resource('teacher', 'TeacherController');
