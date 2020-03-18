@@ -5,6 +5,7 @@
 use App\Teacher;
 use Faker\Generator as Faker;
 use Illuminate\Database\Eloquent\Factory;
+use Illuminate\Support\Str;
 
 $factory->define(Teacher::class, function (Faker $faker) {
     $firstName = $faker->firstName;
@@ -14,6 +15,6 @@ $factory->define(Teacher::class, function (Faker $faker) {
         'first_name' => $firstName,
         'last_name' => $lastName,
         'email' => strtolower("$firstName[0]." . str_replace(' ', '.', $lastName) . "@docent.avans.nl"),
-        'abbreviation' => strtoupper($faker->text(4))
+        'abbreviation' => strtoupper(Str::random(4))
     ];
 });
