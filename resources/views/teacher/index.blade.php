@@ -24,7 +24,12 @@
               @foreach($teachers as $teacher)
                 <li class="list-group-item">
                   {{ $teacher->first_name }} {{ $teacher->last_name }}
-                  <button type="button" class="btn btn-secondary float-right">Edit</button>
+                  <form class="float-right" action="{{ action('TeacherController@destroy', ['teacher' => $teacher->id]) }}" method="post">
+                    @csrf
+                    @method('delete')
+                    <input class="btn btn-danger" type="submit" value="Delete"/>
+                  </form>
+                  <a class="btn btn-secondary float-right">Edit</a>
                 </li>
               @endforeach
             </ul>

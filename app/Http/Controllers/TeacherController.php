@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\TeacherRequest;
 use App\Teacher;
 use Exception;
+use Illuminate\Routing\Redirector;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 
@@ -99,16 +100,15 @@ class TeacherController extends Controller
     }
 
     /**
+     * @param Request $request
      * @param Teacher $teacher
-     * @return View
+     * @return Redirector
      * @throws Exception
      */
-    public function destroy(Teacher $teacher)
+    public function destroy(Request $request, Teacher $teacher)
     {
         $teacher->delete();
-
-        return view('teacher.index', [
-            'message' => 'Teacher deleted'
-        ]);
+        $request->session()->flash('status', "Teacher $teacher->first_name $teacher->last_name was deleted");
+        return redirect('/teacher');
     }
 }
