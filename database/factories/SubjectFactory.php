@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factory;
 
 $factory->define(Subject::class, function (Faker $faker) {
     static $i = 0;
+    static $period = 1;
 
     $subjects = [
         'PROG',
@@ -25,13 +26,14 @@ $factory->define(Subject::class, function (Faker $faker) {
     }
 
     $data = [
-        'name' => "$subjects[$i]$i",
+        'name' => "$subjects[$i]$period",
         'description' => $faker->text(255),
         'credits' => $faker->numberBetween(1, 4),
         'period_id' => $faker->numberBetween(1, 16)
     ];
 
     ++$i;
+    ++$period;
 
     return $data;
 });

@@ -15,7 +15,7 @@
             <p>You are logged in as administrator!</p>
             <div class="btn-group" role="group" aria-label="Basic example">
               <a href="{{ url('/teacher') }}" class="btn btn-secondary">Teachers</a>
-              <a class="btn btn-secondary">Classes</a>
+              <a href="{{ url('/subject') }}" class="btn btn-secondary">Classes</a>
             </div>
           </div>
         </div>

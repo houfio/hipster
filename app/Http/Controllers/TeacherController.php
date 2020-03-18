@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\SearchTeacherRequest;
+use App\Http\Requests\SearchRequest;
 use App\Http\Requests\TeacherRequest;
 use App\Teacher;
 use Exception;
@@ -13,10 +13,10 @@ use Illuminate\Http\Request;
 class TeacherController extends Controller
 {
     /**
-     * @param SearchTeacherRequest $request
+     * @param SearchRequest $request
      * @return View
      */
-    public function index(SearchTeacherRequest $request)
+    public function index(SearchRequest $request)
     {
         $data = $request->validated();
         $page = (int)$request->query('page');
