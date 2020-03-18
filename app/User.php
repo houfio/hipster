@@ -29,11 +29,11 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 
     public function role()
     {
-        return $this->belongsTo(Role::class, 'role_id', 'id');
+        return $this->belongsTo(Role::class);
     }
 
     public function authorize(string $role)
     {
-        return $this->role->name === $role|| abort(401, 'This action is unauthorized.');
+        return $this->role->name === $role || abort(401, 'This action is unauthorized.');
     }
 }

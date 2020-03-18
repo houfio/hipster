@@ -8,8 +8,12 @@ class HomeController extends Controller
 {
     public function index(Request $request)
     {
-        $request->user()->authorize('user');
+        $user = $request->user();
 
-        return view('home');
+        if (is_null($user)) {
+            return view('dashboard.home');
+        }
+
+        return view($user->role->name === 'admin' ? 'administration.home' : 'manager.home');
     }
 }

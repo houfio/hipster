@@ -7,10 +7,6 @@ class RolesSeeder extends Seeder
 {
     public function run()
     {
-        $user_role = new Role();
-        $user_role->name = 'user';
-        $user_role->save();
-
         $manager_role = new Role();
         $manager_role->name = 'manager';
         $manager_role->save();
