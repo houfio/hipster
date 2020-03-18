@@ -17,7 +17,6 @@ class Hip3AddTimestampsToGroupsTable extends Migration
     {
         Schema::table('groups', function (Blueprint $table) {
             $table->dropTimestamps();
-            $table->integer('exam_id')->unsigned()->change();
         });
     }
 }
