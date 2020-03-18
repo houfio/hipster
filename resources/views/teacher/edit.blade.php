@@ -52,9 +52,8 @@
               <li class="list-group-item">
                 {{ $subject->name }}
                 <form class="float-right"
-                      action="{{ action('TeacherController@destroy', ['teacher' => $subject->id]) }}">
+                      action="{{ action('DetachSubjectController@detach', ['subject' => $subject->id, 'teacher' => $teacher->id]) }}" method="post">
                   @csrf
-                  @method('delete')
                   <input class="btn btn-danger" type="submit" value="Detach"/>
                 </form>
                 <a href="{{ url("/subject/$subject->id/edit") }}" class="btn btn-secondary float-right">Edit/View</a>

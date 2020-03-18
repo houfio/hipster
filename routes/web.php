@@ -8,5 +8,6 @@ Route::post('login', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::get('/', 'HomeController@index');
+Route::post('/detach/{teacher}/{subject}', 'DetachSubjectController@detach');
 
 Route::resource('teacher', 'TeacherController');
