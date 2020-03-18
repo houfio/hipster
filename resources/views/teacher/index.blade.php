@@ -21,7 +21,7 @@
                 </form>
               </div>
               <div class="btn-group" role="group">
-                <button type="button" class="btn btn-secondary">Create</button>
+                <a href="{{ url('/teacher/create') }}" class="btn btn-secondary">Create</a>
               </div>
             </div>
             <ul class="list-group" style="margin-top: 1rem; margin-bottom: 1rem;">

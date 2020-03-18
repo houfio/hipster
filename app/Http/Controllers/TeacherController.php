@@ -50,7 +50,7 @@ class TeacherController extends Controller
 
     /**
      * @param TeacherRequest $request
-     * @return View
+     * @return Redirector
      */
     public function store(TeacherRequest $request)
     {
@@ -65,9 +65,8 @@ class TeacherController extends Controller
 
         $teacher->save();
 
-        return view('teacher.index', [
-            'message' => 'Teacher created'
-        ]);
+        $request->session()->flash('status', "Teacher $teacher->first_name $teacher->last_name was created");
+        return redirect('/teacher');
     }
 
     /**

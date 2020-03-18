@@ -6,6 +6,11 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class TeacherRequest extends FormRequest
 {
+    private function getTeacherId(): ?int
+    {
+        return optional($this->route('teacher'))->id;
+    }
+
     public function authorize()
     {
         return true;
@@ -16,8 +21,8 @@ class TeacherRequest extends FormRequest
         return [
             'first_name' => 'required|max:30',
             'last_name' => 'required|max:60',
-            'email' => "required|unique:teachers,email,{$this->route('teacher')->id}|max:255",
-            'abbreviation' => "required|unique:teachers,abbreviation,{$this->route('teacher')->id}|max:4"
+            'email' => "required|unique:teachers,email,{$this->getTeacherId()}|max:255",
+            'abbreviation' => "required|unique:teachers,abbreviation,{$this->getTeacherId()}|max:4"
         ];
     }
 

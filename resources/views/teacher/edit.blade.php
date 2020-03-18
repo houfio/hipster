@@ -15,9 +15,9 @@
           @endforeach
         @endif
         <div class="card">
-          <div class="card-header">Teachers</div>
+          <div class="card-header">Edit {{ $teacher->first_name }} {{ $teacher->last_name }}</div>
           <div class="card-body">
-            <form method="POST" action="{{ action('TeacherController@update', ['teacher' => $teacher->id]) }}">
+            <form method="post" action="{{ action('TeacherController@update', ['teacher' => $teacher->id]) }}">
               @csrf
               @method('put')
               <div class="form-row">
