@@ -24,12 +24,12 @@
                 <a href="{{ url('/teacher/create') }}" class="btn btn-secondary">Create</a>
               </div>
             </div>
-            <ul class="list-group" style="margin-top: 1rem; margin-bottom: 1rem;">
+            <ul class="list-group" style="margin: 1rem;">
               @foreach($teachers as $teacher)
                 <li class="list-group-item">
                   {{ $teacher->first_name }} {{ $teacher->last_name }}
                   <form class="float-right"
-                        action="{{ action('TeacherController@destroy', ['teacher' => $teacher->id]) }}" method="post">
+                        action="{{ action('TeacherController@destroy', ['teacher' => $teacher->id]) }}">
                     @csrf
                     @method('delete')
                     <input class="btn btn-danger" type="submit" value="Delete"/>

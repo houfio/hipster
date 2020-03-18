@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder
             RolesSeeder::class,
             PeriodsSeeder::class,
             GroupsSeeder::class,
+            SubjectSeeder::class,
             TeachersSeeder::class
         ]);
     }
