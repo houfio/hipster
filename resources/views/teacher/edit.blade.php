@@ -52,7 +52,7 @@
               <li class="list-group-item">
                 {{ $subject->name }}
                 <form class="float-right"
-                      action="{{ action('DetachSubjectController@detach', ['subject' => $subject->id, 'teacher' => $teacher->id]) }}" method="post">
+                      action="{{ action('DetachController@detachSubject', ['subject' => $subject->id, 'teacher' => $teacher->id]) }}" method="post">
                   @csrf
                   <input class="btn btn-danger" type="submit" value="Detach"/>
                 </form>
