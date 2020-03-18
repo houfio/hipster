@@ -33,14 +33,14 @@ class TeacherController extends Controller
      */
     public function store(TeacherRequest $request)
     {
-        $formData = $request->validated();
+        $data = $request->validated();
 
         $teacher = new Teacher();
 
-        $teacher->email = $formData['email'];
-        $teacher->first_name = $formData['first_name'];
-        $teacher->last_name = $formData['last_name'];
-        $teacher->abbreviation = $formData['abbreviation'];
+        $teacher->email = $data['email'];
+        $teacher->first_name = $data['first_name'];
+        $teacher->last_name = $data['last_name'];
+        $teacher->abbreviation = $data['abbreviation'];
 
         $teacher->save();
 
@@ -78,12 +78,12 @@ class TeacherController extends Controller
      */
     public function update(TeacherRequest $request, Teacher $teacher)
     {
-        $formData = $request->validated();
+        $data = $request->validated();
 
-        $teacher->email = $formData['email'];
-        $teacher->first_name = $formData['first_name'];
-        $teacher->last_name = $formData['last_name'];
-        $teacher->abbreviation = $formData['abbreviation'];
+        $teacher->email = $data['email'];
+        $teacher->first_name = $data['first_name'];
+        $teacher->last_name = $data['last_name'];
+        $teacher->abbreviation = $data['abbreviation'];
 
         $teacher->save();
 
