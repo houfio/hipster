@@ -29,7 +29,7 @@
                     @method('delete')
                     <input class="btn btn-danger" type="submit" value="Delete"/>
                   </form>
-                  <a class="btn btn-secondary float-right">Edit</a>
+                  <a href="{{ url("/teacher/$teacher->id/edit") }}" class="btn btn-secondary float-right">Edit</a>
                 </li>
               @endforeach
             </ul>
