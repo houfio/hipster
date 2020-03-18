@@ -14,7 +14,11 @@
           <div class="card-body">
             <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
               <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search teacher" aria-label="Search teacher">
+                <form class="float-right"
+                      action="{{ action('TeacherController@index') }}" method="get">
+                  @csrf
+                  <input type="text" name="search" id="search" class="form-control" placeholder="Search teacher" aria-label="Search teacher">
+                </form>
               </div>
               <div class="btn-group" role="group">
                 <button type="button" class="btn btn-secondary">Create</button>
@@ -24,7 +28,8 @@
               @foreach($teachers as $teacher)
                 <li class="list-group-item">
                   {{ $teacher->first_name }} {{ $teacher->last_name }}
-                  <form class="float-right" action="{{ action('TeacherController@destroy', ['teacher' => $teacher->id]) }}" method="post">
+                  <form class="float-right"
+                        action="{{ action('TeacherController@destroy', ['teacher' => $teacher->id]) }}" method="post">
                     @csrf
                     @method('delete')
                     <input class="btn btn-danger" type="submit" value="Delete"/>
