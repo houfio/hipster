@@ -13,11 +13,11 @@ class UserExam extends Model
 
     public function user()
     {
-        return $this->hasOne(Exam::class, 'exam_id');
+        return $this->hasOne(User::class, 'user_id');
     }
 
     public function exam()
     {
-        return $this->hasOne(User::class, 'user_id');
+        return $this->hasOne(Exam::class, 'exam_id');
     }
 }
