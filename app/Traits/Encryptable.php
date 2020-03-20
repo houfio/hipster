@@ -13,7 +13,7 @@ trait Encryptable
         $this->encryptedValues[$key] = $value;
     }
 
-    public function getAttribute(string $key)
+    public function getAttribute($key)
     {
         $value = parent::getAttribute($key);
 
@@ -25,7 +25,7 @@ trait Encryptable
         return $value;
     }
 
-    public function setAttribute(string $key, string $value)
+    public function setAttribute($key, $value)
     {
         if (in_array($key, $this->encryptable)) {
             $this->addToEncryptedValues($key, $value);
