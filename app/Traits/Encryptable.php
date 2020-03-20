@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Crypt;
 trait Encryptable
 {
     public array $encryptedValues = [];
-    
+
     private function addToEncryptedValues($key, $value): void
     {
         $this->encryptedValues[$key] = $value;

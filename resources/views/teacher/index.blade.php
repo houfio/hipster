@@ -13,13 +13,6 @@
           <div class="card-header">Teachers</div>
           <div class="card-body">
             <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
-              <div class="input-group">
-                <form class="float-right"
-                      action="{{ action('TeacherController@index') }}" method="get">
-                  @csrf
-                  <input type="text" name="search" id="search" class="form-control" placeholder="Search teacher" aria-label="Search teacher">
-                </form>
-              </div>
               <div class="btn-group" role="group">
                 <a href="{{ url('/teacher/create') }}" class="btn btn-secondary">Create</a>
               </div>

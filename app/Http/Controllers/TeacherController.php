@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\SearchRequest;
 use App\Http\Requests\TeacherRequest;
 use App\Teacher;
 use Exception;
@@ -13,23 +12,14 @@ use Illuminate\Http\Request;
 class TeacherController extends Controller
 {
     /**
-     * @param SearchRequest $request
+     * @param Request $request
      * @return View
      */
-    public function index(SearchRequest $request)
+    public function index(Request $request)
     {
-        $data = $request->validated();
         $page = (int)$request->query('page');
         $pages = Teacher::count() / 10;
-
-        if (isset($data['search'])) {
-            $teachers = Teacher::offset($page * 10)
-                ->orWhere('email', 'LIKE', "%{$data['search']}%")
-                ->limit(10)
-                ->get();
-        } else {
-            $teachers = Teacher::offset($page * 10)->limit(10)->get();
-        }
+        $teachers = Teacher::offset($page * 10)->limit(10)->get();
 
         return view('teacher.index', [
             'teachers' => $teachers,
