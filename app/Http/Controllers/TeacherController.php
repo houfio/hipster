@@ -24,10 +24,7 @@ class TeacherController extends Controller
 
         if (isset($data['search'])) {
             $teachers = Teacher::offset($page * 10)
-                ->where('first_name', 'LIKE', "%{$data['search']}%")
-                ->orWhere('last_name', 'LIKE', "%{$data['search']}%")
                 ->orWhere('email', 'LIKE', "%{$data['search']}%")
-                ->orWhere('abbreviation', 'LIKE', "%{$data['search']}%")
                 ->limit(10)
                 ->get();
         } else {

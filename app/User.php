@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Traits\Encryptable;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
@@ -10,12 +11,17 @@ use Illuminate\Foundation\Auth\Access\Authorizable;
 
 class User extends Model implements AuthenticatableContract, AuthorizableContract
 {
-    use Authenticatable, Authorizable;
+    use Authenticatable, Authorizable, Encryptable;
 
     public $timestamps = true;
 
     protected $table = 'users';
     protected $primaryKey = 'id';
+
+    protected $encryptable = [
+        'first_name',
+        'last_name'
+    ];
 
     public function exams()
     {
