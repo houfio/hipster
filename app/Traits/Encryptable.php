@@ -7,6 +7,11 @@ use Illuminate\Support\Facades\Crypt;
 trait Encryptable
 {
     public array $encryptedValues = [];
+    
+    private function addToEncryptedValues($key, $value): void
+    {
+        $this->encryptedValues[$key] = $value;
+    }
 
     public function getAttribute($key)
     {
@@ -28,10 +33,5 @@ trait Encryptable
         }
 
         return parent::setAttribute($key, $value);
-    }
-
-    private function addToEncryptedValues($key, $value): void
-    {
-        $this->encryptedValues[$key] = $value;
     }
 }
