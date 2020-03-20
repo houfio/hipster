@@ -13,7 +13,7 @@ class Subject extends Model
 
     public function teachers()
     {
-        return $this->belongsToMany(Teacher::class, 'subject_teachers', 'subject_id');
+        return $this->belongsToMany(Teacher::class);
     }
 
     public function exams()
@@ -23,6 +23,6 @@ class Subject extends Model
 
     public function period()
     {
-        return $this->belongsTo(Period::class, 'period', 'id');
+        return $this->belongsTo(Period::class);
     }
 }

@@ -13,11 +13,11 @@ class SubjectTeacher extends Model
 
     public function subject()
     {
-        return $this->hasOne(Subject::class, 'subject_id');
+        return $this->hasOne(Subject::class);
     }
 
     public function teacher()
     {
-        return $this->hasOne(Teacher::class, 'teacher_id');
+        return $this->hasOne(Teacher::class);
     }
 }
