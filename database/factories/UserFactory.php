@@ -14,7 +14,7 @@ $factory->define(User::class, function (Faker $faker) {
     return [
         'first_name' => $firstName,
         'last_name' => $lastName,
-        'email' => strtolower("$firstName[0]." . str_replace(' ', '.', $lastName) . "@student.avans.nl"),
+        'email' => preg_replace('/[^a-zA-Z.@0-9]/', '', strtolower("$firstName[0]." . str_replace(' ', '.', $lastName) . "@student.avans.nl")),
         'password' => Hash::make('tester123'),
     ];
 });

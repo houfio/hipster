@@ -14,7 +14,7 @@ $factory->define(Teacher::class, function (Faker $faker) {
     return [
         'first_name' => $firstName,
         'last_name' => $lastName,
-        'email' => strtolower("$firstName[0]." . str_replace(' ', '.', $lastName) . "@docent.avans.nl"),
+        'email' => preg_replace('/[^a-zA-Z.@0-9]/', '', strtolower("$firstName[0]." . str_replace(' ', '.', $lastName) . "@docent.avans.nl")),
         'abbreviation' => strtoupper(Str::random(4))
     ];
 });
