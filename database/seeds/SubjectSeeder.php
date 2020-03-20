@@ -1,5 +1,6 @@
 <?php
 
+use App\Exam;
 use App\Subject;
 use Illuminate\Database\Seeder;
 

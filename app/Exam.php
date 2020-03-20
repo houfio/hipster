@@ -18,6 +18,6 @@ class Exam extends Model
 
     public function subject()
     {
-        return $this->hasOne(Subject::class);
+        return $this->belongsTo(Subject::class);
     }
 }

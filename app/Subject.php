@@ -16,9 +16,9 @@ class Subject extends Model
         return $this->belongsToMany(Teacher::class, 'subject_teachers', 'subject_id');
     }
 
-    public function exam()
+    public function exams()
     {
-        return $this->hasOne(Exam::class, 'exam_id', 'id');
+        return $this->hasMany(Exam::class);
     }
 
     public function period()

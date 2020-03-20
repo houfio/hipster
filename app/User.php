@@ -28,11 +28,6 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         return $this->belongsToMany(Exam::class, 'user_exams', 'exam_id');
     }
 
-    public function group()
-    {
-        return $this->belongsTo(Group::class, 'group_id', 'id');
-    }
-
     public function role()
     {
         return $this->belongsTo(Role::class);
