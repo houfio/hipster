@@ -14,9 +14,10 @@ class Teacher extends Model
     protected $table = 'teachers';
     protected $primaryKey = 'id';
 
-    protected $encryptable = [
+    protected array $encryptable = [
         'first_name',
         'last_name',
+        'email',
         'abbreviation'
     ];
 

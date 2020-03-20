@@ -4,7 +4,11 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 
 class LoginController extends Controller
 {
@@ -15,5 +19,25 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    private function getUser(string $email): ?User
+    {
+        return User::all()->first(function (User $user) use ($email) {
+            return $user->email === $email;
+        });
+    }
+
+    public function login(Request $request)
+    {
+        $this->validateLogin($request);
+        $data = $request->only($this->username(), 'password');
+        $user = $this->getUser($data['email']);
+
+        if (!is_null($user) && Auth::attempt(['email' => $user->encryptedValues['email'], 'password' => $data['password']], $request->filled('remember'))) {
+            return $this->sendLoginResponse($request);
+        } else {
+            return $this->sendFailedLoginResponse($request);
+        }
     }
 }

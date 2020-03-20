@@ -18,15 +18,11 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     protected $table = 'users';
     protected $primaryKey = 'id';
 
-    protected $encryptable = [
+    protected array $encryptable = [
         'first_name',
+        'email',
         'last_name'
     ];
-
-    public function exams()
-    {
-        return $this->belongsToMany(Exam::class, 'user_exams', 'exam_id');
-    }
 
     public function role()
     {
