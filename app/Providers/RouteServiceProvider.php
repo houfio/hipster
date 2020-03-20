@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Exam;
 use App\Subject;
 use App\Teacher;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
@@ -19,6 +20,7 @@ class RouteServiceProvider extends ServiceProvider
 
         Route::model('teacher', Teacher::class);
         Route::model('subject', Subject::class);
+        Route::model('exam', Exam::class);
     }
 
     public function map()

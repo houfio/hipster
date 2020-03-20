@@ -13,3 +13,4 @@ Route::post('/detach/teacher/{subject}/{teacher}', 'DetachController@detachTeach
 
 Route::resource('teacher', 'TeacherController');
 Route::resource('subject', 'SubjectController');
+Route::resource('exam', 'ExamController');
