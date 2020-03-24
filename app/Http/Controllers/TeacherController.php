@@ -40,7 +40,6 @@ class TeacherController extends Controller
         $teacher->abbreviation = $data['abbreviation'];
 
         $teacher->save();
-
         $request->session()->flash('status', "Teacher $teacher->first_name $teacher->last_name was created");
 
         return redirect()->action('TeacherController@index');
@@ -63,10 +62,9 @@ class TeacherController extends Controller
         $teacher->abbreviation = $data['abbreviation'];
 
         $teacher->save();
-
         $request->session()->flash('status', "Teacher $teacher->first_name $teacher->last_name was updated");
 
-        return redirect()->action('TeacherController@edit', ['teacher' => $teacher->id]);
+        return redirect()->action('TeacherController@index');
     }
 
     /**

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title' ,'Teachers')
+@section('title', 'Teachers')
 
 @section('actions')
   <a href="{{ action('TeacherController@create') }}" class="btn btn-primary">Create</a>
