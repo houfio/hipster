@@ -30,16 +30,9 @@
             <div class="form-row">
               <div class="form-group col-md-6">
                 <label for="start_date">Start date</label>
-                <input value="{{ $exam->start_date }}" type="datetime-local" class="form-control" name="start_date"
+                <input value="{{ $exam->due_on }}" type="datetime-local" class="form-control" name="start_date"
                        id="start_date" disabled>
               </div>
-              <div class="form-group col-md-6">
-                <label for="end_date">End date</label>
-                <input value="{{ $exam->end_date }}" type="datetime-local" class="form-control" name="end_date"
-                       id="end_date" disabled>
-              </div>
-            </div>
-            <div class="form-row">
               <div class="form-group col-md-6">
                 <label for="is_assessment">Assessment</label>
                 <input type="checkbox" class="form-control" name="is_assessment" id="is_assessment"

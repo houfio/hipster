@@ -11,7 +11,7 @@ class ExamController extends Controller
 {
     public function __construct()
     {
-        $this->authorizeResource(Exam::class, 'Exam');
+        $this->authorizeResource(Exam::class, 'exam');
     }
 
     public function index(SearchRequest $request)
