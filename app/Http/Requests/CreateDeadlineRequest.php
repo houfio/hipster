@@ -15,13 +15,15 @@ class CreateDeadlineRequest extends FormRequest
     {
         return [
             'due_on' => 'date',
+            'exam' => 'numeric|exists:exams,id'
         ];
     }
 
     public function messages()
     {
         return [
-            'date' => ':attribute must be a date!'
+            'date' => ':attribute must be a date!',
+            'exists' => ':attribute doesn\'t exist in the database!'
         ];
     }
 
@@ -29,6 +31,7 @@ class CreateDeadlineRequest extends FormRequest
     {
         return [
             'due_on' => 'Due on',
+            'exam' => 'Exam'
         ];
     }
 }

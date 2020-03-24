@@ -24,18 +24,18 @@ class TeacherRequest extends FormRequest
     public function messages()
     {
         return [
-            'required' => ':attribute is een verplicht veld!',
-            'max' => ':attribute mag niet langer zijn dan :max karakters!'
+            'required' => ':attribute is mandatory!',
+            'max' => ':attribute cannot be longer than :max characters!'
         ];
     }
 
     public function attributes()
     {
         return [
-            'first_name' => 'Voornaam',
-            'last_name' => 'Achternaam',
-            'email' => 'E-mailadres',
-            'abbreviation' => 'Afkorting'
+            'first_name' => 'First name',
+            'last_name' => 'Last name',
+            'email' => 'E-mail',
+            'abbreviation' => 'Abbreviation'
         ];
     }
 }
