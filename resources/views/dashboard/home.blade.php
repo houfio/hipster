@@ -76,9 +76,15 @@
                                     @foreach($period['subjects'] as $subject)
                                       <tr>
                                         <th scope="row">{{ $subject->name }}</th>
-                                        <td>{{ $subject->credits }}</td>
-                                        <td>{{ $subject->exams()->min('grade') }}</td>
-                                        <td>Show exams ></td>
+                                        <td>{{ $subject->exams()->min('grade') >= 5.5 ? $subject->credits : 0 }}/{{ $subject->credits }}</td>
+                                        @if($subject->exams()->min('grade') >= 5.5)
+                                          <td style="color: green;">Passed</td>
+                                        @elseif($subject->exams()->min('grade'))
+                                          <td style="color: red;">Not passed</td>
+                                        @else
+                                          <td>No exams graded yet</td>
+                                        @endif
+                                        <td><a href="{{ action('DashboardController@exams', ['subject' => $subject->id]) }}">Show exams ></a></td>
                                       </tr>
                                     @endforeach
                                   </tbody>

@@ -19,7 +19,9 @@ class DashboardController extends Controller
             $received = 0;
 
             $period->subjects()->each(function (Subject $subject) use (&$received) {
-                $subject->exams()->min('grade') >= 5.5 ?: $received += $subject->credits;
+                if ($subject->exams()->min('grade') >= 5.5) {
+                    $received += $subject->credits;
+                }
             });
 
             $semesters[$period->semester]['periods'][$period->period] = [
@@ -40,6 +42,13 @@ class DashboardController extends Controller
             'creditsNeeded' => $totalCreditsNeeded,
             'creditsReceived' => $totalCreditsReceived,
             'semesters' => $semesters
+        ]);
+    }
+
+    public function exams(Subject $subject)
+    {
+        return view('dashboard.exams', [
+            'exams' => $subject->exams()->get()
         ]);
     }
 }
