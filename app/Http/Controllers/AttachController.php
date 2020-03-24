@@ -12,6 +12,10 @@ class AttachController extends Controller
     {
         $teacher = Teacher::find($request->get('teacher'));
 
+        if (!$teacher) {
+            return redirect()->action('SubjectController@edit', ['subject' => $subject->id]);
+        }
+
         $subject->teachers()->save($teacher);
         $request->session()->flash('status', "$subject->name is now given by $teacher->first_name $teacher->last_name");
 

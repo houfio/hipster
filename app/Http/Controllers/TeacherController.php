@@ -16,10 +16,6 @@ class TeacherController extends Controller
         $this->authorizeResource(Teacher::class, 'teacher');
     }
 
-    /**
-     * @param Request $request
-     * @return View
-     */
     public function index(Request $request)
     {
         $page = (int)$request->query('page');
@@ -32,18 +28,11 @@ class TeacherController extends Controller
         ]);
     }
 
-    /**
-     * @return View
-     */
     public function create()
     {
         return view('teacher.create');
     }
 
-    /**
-     * @param TeacherRequest $request
-     * @return Redirector
-     */
     public function store(TeacherRequest $request)
     {
         $data = $request->validated();
@@ -58,13 +47,10 @@ class TeacherController extends Controller
         $teacher->save();
 
         $request->session()->flash('status', "Teacher $teacher->first_name $teacher->last_name was created");
-        return redirect('/teacher');
+
+        return redirect()->action('TeacherController@index');
     }
 
-    /**
-     * @param Teacher $teacher
-     * @return View
-     */
     public function show(Teacher $teacher)
     {
         return view('teacher.show', [
@@ -72,10 +58,6 @@ class TeacherController extends Controller
         ]);
     }
 
-    /**
-     * @param Teacher $teacher
-     * @return View
-     */
     public function edit(Teacher $teacher)
     {
         return view('teacher.edit', [
@@ -83,12 +65,6 @@ class TeacherController extends Controller
         ]);
     }
 
-    /**
-     * @param TeacherRequest $request
-     * @param Teacher $teacher
-     * @return Redirector
-     * @return View
-     */
     public function update(TeacherRequest $request, Teacher $teacher)
     {
         $data = $request->validated();
@@ -101,19 +77,18 @@ class TeacherController extends Controller
         $teacher->save();
 
         $request->session()->flash('status', "Teacher $teacher->first_name $teacher->last_name was updated");
-        return redirect("/teacher/$teacher->id/edit");
+
+        return redirect()->action('TeacherController@edit', ['teacher' => $teacher->id]);
     }
 
     /**
-     * @param Request $request
-     * @param Teacher $teacher
-     * @return Redirector
      * @throws Exception
      */
     public function destroy(Request $request, Teacher $teacher)
     {
         $teacher->delete();
         $request->session()->flash('status', "Teacher $teacher->first_name $teacher->last_name was deleted");
-        return redirect('/teacher');
+
+        return redirect()->action('TeacherController@index');
     }
 }

@@ -6,15 +6,9 @@ use App\Exam;
 use App\Http\Requests\SearchRequest;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Redirector;
-use Illuminate\View\View;
 
 class ExamController extends Controller
 {
-    /**
-     * @param SearchRequest $request
-     * @return View
-     */
     public function index(SearchRequest $request)
     {
         $data = $request->validated();
@@ -37,9 +31,6 @@ class ExamController extends Controller
         ]);
     }
 
-    /**
-     * @return View
-     */
     public function create()
     {
         return view('exam.create');
@@ -50,10 +41,6 @@ class ExamController extends Controller
         //
     }
 
-    /**
-     * @param Exam $exam
-     * @return View
-     */
     public function show(Exam $exam)
     {
         return view('exam.show', [
@@ -61,10 +48,6 @@ class ExamController extends Controller
         ]);
     }
 
-    /**
-     * @param Exam $exam
-     * @return View
-     */
     public function edit(Exam $exam)
     {
         return view('exam.edit', [
@@ -74,19 +57,16 @@ class ExamController extends Controller
 
     public function update(Request $request, Exam $exam)
     {
-
     }
 
     /**
-     * @param Request $request
-     * @param Exam $exam
-     * @return Redirector
      * @throws Exception
      */
     public function destroy(Request $request, Exam $exam)
     {
         $exam->delete();
         $request->session()->flash('status', 'This exam was deleted');
-        return redirect('/teacher');
+
+        return redirect()->action('TeacherController@index');
     }
 }

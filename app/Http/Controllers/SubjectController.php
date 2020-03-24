@@ -7,8 +7,6 @@ use App\Http\Requests\SubjectRequest;
 use App\Subject;
 use App\Teacher;
 use Exception;
-use Illuminate\Routing\Redirector;
-use Illuminate\View\View;
 use Illuminate\Http\Request;
 
 class SubjectController extends Controller
