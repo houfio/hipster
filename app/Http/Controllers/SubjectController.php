@@ -61,13 +61,6 @@ class SubjectController extends Controller
         return redirect()->action('SubjectController@index');
     }
 
-    public function show(Subject $subject)
-    {
-        return view('subject.show', [
-            'subject' => $subject
-        ]);
-    }
-
     public function edit(Subject $subject)
     {
         return view('subject.edit', [
