@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Period;
 use App\Subject;
+use chillerlan\QRCode\QRCode;
 
 class HomeController extends Controller
 {
     public function index()
     {
+        $qr = (new QRCode)->render(url('/'));
         $periods = Period::all();
         $semesters = [];
         $totalCreditsReceived = 0;
@@ -41,7 +43,8 @@ class HomeController extends Controller
         return view('index', [
             'creditsNeeded' => $totalCreditsNeeded,
             'creditsReceived' => $totalCreditsReceived,
-            'semesters' => $semesters
+            'semesters' => $semesters,
+            'qr' => $qr
         ]);
     }
 

@@ -3,10 +3,12 @@
 @section('title', 'Home')
 
 @section('content')
+  <div>
+    <img src="{{ $qr }}"/>
+  </div>
   <span>EC's: {{ $creditsReceived }}/{{ $creditsNeeded }}</span>
   <div class="progress mb-4">
-    <div class="progress-bar" role="progressbar" style="width: {{ 100 / $creditsNeeded * $creditsReceived }}%"
-         aria-valuenow="{{ $creditsReceived }}" aria-valuemin="0" aria-valuemax="{{ $creditsNeeded }}"></div>
+    <div class="progress-bar" role="progressbar" style="width: {{ 100 / $creditsNeeded * $creditsReceived }}%"></div>
   </div>
   <div class="accordion" id="accordionSemesters">
     @foreach($semesters as $semesterKey => $semester)
@@ -14,8 +16,7 @@
         <div class="card-header" id="headingSemester{{ $semesterKey }}">
           <h2 class="mb-0">
             <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
-                    data-target="#collapseSemester{{ $semesterKey }}"
-                    aria-expanded="false" aria-controls="collapseSemester{{ $semesterKey }}">
+                    data-target="#collapseSemester{{ $semesterKey }}" aria-expanded="false" >
               Semester {{ $semesterKey }}
             </button>
           </h2>
