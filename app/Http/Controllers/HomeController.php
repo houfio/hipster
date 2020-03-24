@@ -2,22 +2,53 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Period;
+use App\Subject;
 
 class HomeController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
-        $user = $request->user();
+        $periods = Period::all();
+        $semesters = [];
+        $totalCreditsReceived = 0;
+        $totalCreditsNeeded = 0;
 
-        if (is_null($user)) {
-            $request->session()->flash('status', 'Welcome!');
+        foreach ($periods as $period) {
+            $credits = $period->subjects()->sum('credits');
+            $received = 0;
 
-            return view('dashboard.home');
+            $period->subjects()->each(function (Subject $subject) use (&$received) {
+                if ($subject->exams()->min('grade') >= 5.5) {
+                    $received += $subject->credits;
+                }
+            });
+
+            $semesters[$period->semester]['periods'][$period->period] = [
+                'subjects' => $period->subjects()->get(),
+                'creditsNeeded' => $credits,
+                'creditsReceived' => $received
+            ];
+
+            $totalCreditsReceived += $received;
+            $totalCreditsNeeded += $credits;
+
+            $semester = $semesters[$period->semester];
+            $semesters[$period->semester]['creditsNeeded'] = isset($semester['creditsNeeded']) ? $semester['creditsNeeded'] + $credits : $credits;
+            $semesters[$period->semester]['creditsReceived'] = isset($semester['creditsReceived']) ? $semester['creditsReceived'] + $received : $received;
         }
 
-        $request->session()->flash('status', "Welcome, $user->first_name $user->last_name!");
+        return view('home', [
+            'creditsNeeded' => $totalCreditsNeeded,
+            'creditsReceived' => $totalCreditsReceived,
+            'semesters' => $semesters
+        ]);
+    }
 
-        return view($user->role->name === 'admin' ? 'administration.home' : 'manager.home');
+    public function exams(Subject $subject)
+    {
+        return view('exams', [
+            'exams' => $subject->exams()->get()
+        ]);
     }
 }

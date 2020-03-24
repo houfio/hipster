@@ -9,6 +9,11 @@ use Illuminate\Http\Request;
 
 class ExamController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Exam::class, 'Exam');
+    }
+
     public function index(SearchRequest $request)
     {
         $data = $request->validated();
@@ -38,7 +43,6 @@ class ExamController extends Controller
 
     public function store(Request $request)
     {
-        //
     }
 
     public function show(Exam $exam)

@@ -10,8 +10,8 @@
             <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
               <div class="input-group">
                 <a
-                    href="{{ action('DashboardController@exams', ['subject' => $exam->subject->id]) }}"
-                    class="btn btn-secondary float-right"
+                  href="{{ action('HomeController@exams', ['subject' => $exam->subject->id]) }}"
+                  class="btn btn-secondary float-right"
                 >
                   Back
                 </a>

@@ -11,6 +11,11 @@ use Illuminate\Http\Request;
 
 class SubjectController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Subject::class, 'subject');
+    }
+
     public function index(SearchRequest $request)
     {
         $data = $request->validated();

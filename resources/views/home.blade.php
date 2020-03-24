@@ -84,7 +84,7 @@
                                         @else
                                           <td>No exams graded yet</td>
                                         @endif
-                                        <td><a href="{{ action('DashboardController@exams', ['subject' => $subject->id]) }}">Show exams ></a></td>
+                                        <td><a href="{{ action('HomeController@exams', ['subject' => $subject->id]) }}">Show exams ></a></td>
                                       </tr>
                                     @endforeach
                                   </tbody>
