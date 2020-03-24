@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SearchRequest;
 use App\Http\Requests\TeacherRequest;
+use App\Subject;
 use App\Teacher;
 use Exception;
 use Illuminate\Http\Request;
@@ -45,13 +47,18 @@ class TeacherController extends Controller
         return redirect()->action('TeacherController@index');
     }
 
-    public function edit(Teacher $teacher)
+    public function edit(SearchRequest $request, Teacher $teacher)
     {
-        $subjects = $teacher->subjects()->paginate(5);
+        $data = $request->validated();
+        $search = isset($data['search']) ? $data['search'] : '';
+        $subjects = Subject::where('name', 'LIKE', "%$search%")->paginate(10);
+        $attached = $teacher->subjects()->get();
 
         return view('teacher.edit', [
             'teacher' => $teacher,
-            'subjects' => $subjects
+            'subjects' => $subjects,
+            'attached' => $attached,
+            'search' => $search
         ]);
     }
 

@@ -35,7 +35,7 @@
     </div>
     <div class="form-row">
       <div class="form-group col-md-6">
-        <label for="email">E-mail address</label>
+        <label for="email">Email address</label>
         <input value="{{ $teacher->email }}" type="email" class="form-control" name="email" id="email">
       </div>
       <div class="form-group col-md-6">
@@ -50,19 +50,32 @@
       </div>
     </div>
   </form>
-  <div class="d-flex justify-content-end">
-    {{ $subjects->links() }}
+  <hr class="mt-0"/>
+  <div class="d-flex justify-content-between">
+    <form action="{{ action('TeacherController@edit', ['teacher' => $teacher->id]) }}">
+      <input class="form-control" placeholder="Search" name="search" value="{{ $search }}"/>
+    </form>
+    {{ $subjects->appends(['search' => $search])->links() }}
   </div>
   <ul class="list-group">
     @foreach($subjects as $subject)
-      <x-list-item
-        :id="$subject->id"
-        :edit="action('SubjectController@edit', ['subject' => $subject->id])"
-        :delete="action('DetachController@detachSubject', ['subject' => $subject->id, 'teacher' => $teacher->id])"
-      >
+      <x-list-item :id="$subject->id">
+        <x-slot name="extra">
+          <a href="{{ action('SubjectController@edit', ['subject' => $subject->id]) }}" class="btn btn-light">Edit</a>
+          <x-form-button :id="'toggle-form-' . $subject->id" type="primary">
+            {{ $attached->contains($subject) ? 'Detach' : 'Attach' }}
+          </x-form-button>
+        </x-slot>
         {{ $subject->name }}
+        <form
+          id="toggle-form-{{ $subject->id }}"
+          method="post"
+          action="{{ action('AttachController@toggle', ['teacher' => $teacher->id, 'subject' => $subject->id, 'to' => 'teacher']) }}"
+          class="d-none"
+        >
+          @csrf
+        </form>
       </x-list-item>
     @endforeach
   </ul>
 @endsection
-
