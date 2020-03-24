@@ -50,8 +50,11 @@
       </div>
     </div>
   </form>
+  <div class="d-flex justify-content-end">
+    {{ $subjects->links() }}
+  </div>
   <ul class="list-group">
-    @foreach($teacher->subjects()->get() as $subject)
+    @foreach($subjects as $subject)
       <x-list-item
         :id="$subject->id"
         :edit="action('SubjectController@edit', ['subject' => $subject->id])"

@@ -14,7 +14,7 @@ class TeacherController extends Controller
         $this->authorizeResource(Teacher::class, 'teacher');
     }
 
-    public function index(Request $request)
+    public function index()
     {
         $teachers = Teacher::paginate(10);
 
@@ -47,8 +47,11 @@ class TeacherController extends Controller
 
     public function edit(Teacher $teacher)
     {
+        $subjects = $teacher->subjects()->paginate(5);
+
         return view('teacher.edit', [
-            'teacher' => $teacher
+            'teacher' => $teacher,
+            'subjects' => $subjects
         ]);
     }
 
