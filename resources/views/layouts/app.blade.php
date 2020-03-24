@@ -4,7 +4,7 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta name="csrf-token" content="{{ csrf_token() }}"/>
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Laravel') }} - @yield('title')</title>
     <script src="{{ asset('js/app.js') }}" defer></script>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet"/>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet"/>
@@ -38,24 +38,41 @@
             </x-navigation-item>
           @endcan
         </ul>
-        @auth
-          <ul class="navbar-nav">
+        <ul class="navbar-nav">
+          @auth
             <x-navigation-item
               path="logout"
               onclick="event.preventDefault(); document.getElementById('logout-form').submit()"
             >
               Logout
             </x-navigation-item>
-          </ul>
-          <form id="logout-form" action="{{ route('logout') }}" method="post">
-            @csrf
-          </form>
-        @endauth
+            <form id="logout-form" action="{{ route('logout') }}" method="post">
+              @csrf
+            </form>
+          @endauth
+          @guest
+            <x-navigation-item path="login">
+              Login
+            </x-navigation-item>
+          @endguest
+        </ul>
       </div>
     </nav>
     <main class="py-4">
       <div class="container">
-        @yield('content')
+        @if (session('status'))
+          <div class="alert alert-success">
+            {{ session('status') }}
+          </div>
+        @endif
+        <div class="card p-4 border-0 mb-4">
+          <h1 class="display-4">
+            @yield('title')
+          </h1>
+        </div>
+        <div class="card p-4 border-0">
+          @yield('content')
+        </div>
       </div>
     </main>
   </body>
