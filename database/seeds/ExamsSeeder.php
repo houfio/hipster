@@ -10,7 +10,7 @@ class ExamsSeeder extends Seeder
     {
         $subjects = Subject::all();
 
-        factory(Exam::class, 40)->make()->each(function (Exam $exam) use ($subjects) {
+        factory(Exam::class, 220)->make()->each(function (Exam $exam) use ($subjects) {
             $exam->subject()->associate($subjects->random())->save();
         });
     }

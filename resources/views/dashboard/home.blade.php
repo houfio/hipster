@@ -12,6 +12,11 @@
         <div class="card">
           <div class="card-header">Dashboard</div>
           <div class="card-body">
+            <span>EC's: {{ $creditsReceived }}/{{ $creditsNeeded }}</span>
+            <div class="progress mb-4">
+              <div class="progress-bar" role="progressbar" style="width: {{ 100 / $creditsNeeded * $creditsReceived }}%"
+                   aria-valuenow="{{ $creditsReceived }}" aria-valuemin="0" aria-valuemax="{{ $creditsNeeded }}"></div>
+            </div>
             <div class="accordion" id="accordionSemesters">
               @foreach($semesters as $semesterKey => $semester)
                 <div class="card">
@@ -28,8 +33,13 @@
                        aria-labelledby="headingSemester{{ $semesterKey }}"
                        data-parent="#accordionSemesters">
                     <div class="card-body">
-                      <p>EC's needed: {{ $semester['creditsNeeded'] }}</p>
-                      <p>EC's received: {{ $semester['creditsReceived'] }}</p>
+                      <span>EC's: {{ $semester['creditsReceived'] }}/{{ $semester['creditsNeeded'] }}</span>
+                      <div class="progress mb-4">
+                        <div class="progress-bar" role="progressbar"
+                             style="width: {{ 100 / $semester['creditsNeeded'] * $semester['creditsReceived'] }}%"
+                             aria-valuenow="{{ $semester['creditsReceived'] }}" aria-valuemin="0"
+                             aria-valuemax="{{ $semester['creditsNeeded'] }}"></div>
+                      </div>
                       <div class="accordion" id="accordionPeriods">
                         @foreach($semester['periods'] as $periodKey => $period)
                           <div class="card">
@@ -46,9 +56,33 @@
                                  aria-labelledby="headingPeriod{{ $periodKey }}"
                                  data-parent="#accordionPeriods">
                               <div class="card-body">
-                                @foreach($period['subjects'] as $subject)
-                                  <p>{{ $subject->name }}</p>
-                                @endforeach
+                                <span>EC's: {{ $period['creditsReceived'] }}/{{ $period['creditsNeeded'] }}</span>
+                                <div class="progress mb-4">
+                                  <div class="progress-bar" role="progressbar"
+                                       style="width: {{ 100 / $period['creditsNeeded'] * $period['creditsReceived'] }}%"
+                                       aria-valuenow="{{ $period['creditsReceived'] }}" aria-valuemin="0"
+                                       aria-valuemax="{{ $period['creditsNeeded'] }}"></div>
+                                </div>
+                                <table class="table">
+                                  <thead>
+                                    <tr>
+                                      <th scope="col">Subject</th>
+                                      <th scope="col">EC's</th>
+                                      <th scope="col">Passed</th>
+                                      <th scope="col">Exams</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    @foreach($period['subjects'] as $subject)
+                                      <tr>
+                                        <th scope="row">{{ $subject->name }}</th>
+                                        <td>{{ $subject->credits }}</td>
+                                        <td>{{ $subject->exams()->min('grade') }}</td>
+                                        <td>Show exams ></td>
+                                      </tr>
+                                    @endforeach
+                                  </tbody>
+                                </table>
                               </div>
                             </div>
                           </div>

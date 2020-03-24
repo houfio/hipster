@@ -11,6 +11,8 @@ class DashboardController extends Controller
     {
         $periods = Period::all();
         $semesters = [];
+        $totalCreditsReceived = 0;
+        $totalCreditsNeeded = 0;
 
         foreach ($periods as $period) {
             $credits = $period->subjects()->sum('credits');
@@ -26,12 +28,17 @@ class DashboardController extends Controller
                 'creditsReceived' => $received
             ];
 
+            $totalCreditsReceived += $received;
+            $totalCreditsNeeded += $credits;
+
             $semester = $semesters[$period->semester];
             $semesters[$period->semester]['creditsNeeded'] = isset($semester['creditsNeeded']) ? $semester['creditsNeeded'] + $credits : $credits;
             $semesters[$period->semester]['creditsReceived'] = isset($semester['creditsReceived']) ? $semester['creditsReceived'] + $received : $received;
         }
 
         return view('dashboard.home', [
+            'creditsNeeded' => $totalCreditsNeeded,
+            'creditsReceived' => $totalCreditsReceived,
             'semesters' => $semesters
         ]);
     }
