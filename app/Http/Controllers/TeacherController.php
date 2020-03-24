@@ -11,6 +11,11 @@ use Illuminate\Http\Request;
 
 class TeacherController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Teacher::class, 'teacher');
+    }
+
     /**
      * @param Request $request
      * @return View
