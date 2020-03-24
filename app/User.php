@@ -29,8 +29,13 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         return $this->belongsTo(Role::class);
     }
 
-    public function authorize(string $role)
+    public function isAdmin(): bool
     {
-        return $this->role->name === $role || abort(401, 'This action is unauthorized.');
+        return $this->role->name === 'admin';
+    }
+
+    public function isManager(): bool
+    {
+        return $this->role->name === 'manager';
     }
 }

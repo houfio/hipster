@@ -12,26 +12,26 @@ class TeacherPolicy
 
     public function viewAny(User $user)
     {
-        return $user->role->name === 'admin';
+        return $user->isAdmin();
     }
 
     public function view(User $user, Teacher $teacher)
     {
-        return $user->role->name === 'admin';
+        return $user->isAdmin();
     }
 
     public function create(User $user)
     {
-        return $user->role->name === 'admin';
+        return $user->isAdmin();
     }
 
     public function update(User $user, Teacher $teacher)
     {
-        return $user->role->name === 'admin';
+        return $user->isAdmin();
     }
 
     public function delete(User $user, Teacher $teacher)
     {
-        return $user->role->name === 'admin';
+        return $user->isAdmin();
     }
 }
