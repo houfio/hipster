@@ -1,88 +1,56 @@
 @extends('layouts.app')
 
-@section('content')
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-md-8">
-        @if (session('status'))
-          <div class="alert alert-success" role="alert">
-            {{ session('status') }}
-          </div>
-        @endif
-        @if($errors)
-          @foreach ($errors->all() as $error)
-            <div class="alert alert-danger" role="alert">{{ $error }}</div>
-          @endforeach
-        @endif
-        <div class="card">
-          <div class="card-header">Edit {{ $subject->name }}</div>
-          <div class="card-body">
-            <form method="post" action="{{ action('SubjectController@update', ['subject' => $subject->id]) }}">
-              @csrf
-              @method('put')
-              <div class="form-row">
-                <div class="form-group col-md-6">
-                  <label for="name">Name</label>
-                  <input value="{{ $subject->name }}" type="text" class="form-control" name="name" id="name">
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="credits">Credits</label>
-                  <input value="{{ $subject->credits }}" type="text" class="form-control" name="credits" id="credits">
-                </div>
-              </div>
-              <div class="form-row">
-                <div class="form-group col-md-12">
-                  <label for="description">Description</label>
-                  <textarea type="text" class="form-control" name="description" id="description">{{ $subject->description }}</textarea>
-                </div>
-              </div>
-              <input type="submit" class="btn btn-secondary" value="Save">
-              <a href="{{ action('SubjectController@index') }}" class="btn btn-secondary">Cancel</a>
-            </form>
-            <form
-              method="post"
-              action="{{ action('AttachController@attachTeacher', ['subject' => $subject->id]) }}"
-              class="mt-4"
-            >
-              @csrf
-              <div class="input-group">
-                <select id="teacher" name="teacher" class="form-control">
-                  @foreach ($teachers as $teacher)
-                    <option value="{{ $teacher->id }}">
-                      {{$teacher->first_name}} {{$teacher->last_name}}
-                    </option>
-                  @endforeach
-                </select>
-                <div class="input-group-append">
-                  <button class="btn btn-secondary">Attach</button>
-                </div>
-              </div>
-            </form>
-          </div>
-          <ul class="list-group" style="margin-top: 1rem; margin-bottom: 1rem;">
-            @foreach($subject->teachers()->get() as $teacher)
-              <li class="list-group-item">
-                {{ $teacher->first_name }} {{ $teacher->last_name }}
-                <form
-                  class="float-right"
-                  action="{{ action('DetachController@detachTeacher', ['subject' => $subject->id, 'teacher' => $teacher->id]) }}"
-                  method="post"
-                >
-                  @csrf
-                  <input class="btn btn-danger" type="submit" value="Detach"/>
-                </form>
-                <a
-                  href="{{ action('TeacherController@edit', ['teacher' => $teacher->id]) }}"
-                  class="btn btn-secondary float-right"
-                >
-                  Edit/View
-                </a>
-              </li>
-            @endforeach
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
+@section('title', 'Edit subject')
+
+@section('actions')
+  <a href="{{ action('SubjectController@index') }}" class="btn btn-light">Cancel</a>
+  <x-form-button id="edit-form" type="primary">Edit</x-form-button>
 @endsection
 
+@section('content')
+  <form method="post" id="edit-form" action="{{ action('SubjectController@update', ['subject' => $subject->id]) }}">
+    @csrf
+    @method('put')
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="name">Name</label>
+        <input value="{{ $subject->name }}" type="text" class="form-control" name="name" id="name">
+      </div>
+      <div class="form-group col-md-6">
+        <label for="credits">Credits</label>
+        <input value="{{ $subject->credits }}" type="text" class="form-control" name="credits" id="credits">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-12">
+        <label for="description">Description</label>
+        <textarea type="text" class="form-control" name="description" id="description">{{ $subject->description }}</textarea>
+      </div>
+    </div>
+  </form>
+  <hr class="mt-0"/>
+  <div class="d-flex justify-content-end">
+    {{ $teachers->links() }}
+  </div>
+  <ul class="list-group">
+    @foreach($teachers as $teacher)
+      <x-list-item :id="$teacher->id">
+        <x-slot name="extra">
+          <a href="{{ action('TeacherController@edit', ['teacher' => $teacher->id]) }}" class="btn btn-light">Edit</a>
+          <x-form-button :id="'toggle-form-' . $teacher->id" type="primary">
+            {{ $attached->contains($teacher) ? 'Detach' : 'Attach' }}
+          </x-form-button>
+        </x-slot>
+        {{ $teacher->first_name }} {{ $teacher->last_name }}
+        <form
+          id="toggle-form-{{ $teacher->id }}"
+          method="post"
+          action="{{ action('AttachController@toggle', ['teacher' => $teacher->id, 'subject' => $subject->id, 'to' => 'subject']) }}"
+          class="d-none"
+        >
+          @csrf
+        </form>
+      </x-list-item>
+    @endforeach
+  </ul>
+@endsection

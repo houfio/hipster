@@ -44,7 +44,6 @@ class SubjectController extends Controller
         $subject->credits = $data['credits'];
 
         $subject->save();
-
         $request->session()->flash('status', "Subject $subject->name was created");
 
         return redirect()->action('SubjectController@index');
@@ -52,9 +51,13 @@ class SubjectController extends Controller
 
     public function edit(Subject $subject)
     {
+        $teachers = Teacher::paginate(10);
+        $attached = $subject->teachers()->get();
+
         return view('subject.edit', [
             'subject' => $subject,
-            'teachers' => Teacher::get()
+            'teachers' => $teachers,
+            'attached' => $attached
         ]);
     }
 
@@ -67,10 +70,9 @@ class SubjectController extends Controller
         $subject->credits = $data['credits'];
 
         $subject->save();
-
         $request->session()->flash('status', "Subject $subject->name was updated");
 
-        return redirect()->action('SubjectController@edit', ['subject' => $subject->id]);
+        return redirect()->action('SubjectController@index');
     }
 
     /**
