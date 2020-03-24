@@ -16,4 +16,4 @@ Route::resource('teachers', 'TeacherController')->except(['show']);
 Route::resource('subjects', 'SubjectController');
 Route::resource('exams', 'ExamController');
 Route::resource('deadlines', 'DeadlineController')->only(['index', 'create', 'store', 'update']);
-Route::resource('tags', 'TagController')->except(['show', 'edit']);
+Route::resource('tags', 'TagController')->only(['index', 'store', 'destroy']);

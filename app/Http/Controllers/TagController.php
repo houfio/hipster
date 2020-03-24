@@ -2,33 +2,42 @@
 
 namespace App\Http\Controllers;
 
-use App\Tag;
+use App\Http\Requests\TagRequest;
 use Illuminate\Http\Request;
+use App\Tag;
+use Exception;
 
 class TagController extends Controller
 {
     public function index()
     {
-        //
+        $tags = Tag::paginate(10);
+
+        return view('tags.index', [
+            'tags' => $tags
+        ]);
     }
 
-    public function create()
+    public function store(TagRequest $request)
     {
-        //
+        $data = $request->validated();
+        $tag = new Tag();
+
+        $tag->name = $data['name'];
+
+        $tag->save();
+
+        $request->session()->flash('status', 'Tag created');
+        return redirect()->action('TagController@index');
     }
 
-    public function store(Request $request)
+    /**
+     * @throws Exception
+     */
+    public function destroy(Request $request, Tag $tag)
     {
-        //
-    }
-
-    public function show(Tag $tag)
-    {
-        //
-    }
-
-    public function destroy(Tag $tag)
-    {
-        //
+        $tag->delete();
+        $request->session()->flash('status', 'Tag deleted');
+        return redirect()->action('TagController@index');
     }
 }
