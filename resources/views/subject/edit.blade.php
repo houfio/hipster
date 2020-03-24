@@ -44,6 +44,7 @@
               action="{{ action('AttachController@attachTeacher', ['subject' => $subject->id]) }}"
               class="mt-4"
             >
+              @csrf
               <div class="input-group">
                 <select id="teacher" name="teacher" class="form-control">
                   @foreach ($teachers as $teacher)

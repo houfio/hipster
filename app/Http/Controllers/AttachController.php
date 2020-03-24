@@ -8,9 +8,11 @@ use Illuminate\Http\Request;
 
 class AttachController extends Controller
 {
-    public function attachTeacher(Request $request, Subject $subject, Teacher $teacher)
+    public function attachTeacher(Request $request, Subject $subject)
     {
-        $subject->teachers()->attach($request->get('teacher'));
+        $teacher = Teacher::find($request->get('teacher'));
+
+        $subject->teachers()->save($teacher);
         $request->session()->flash('status', "$subject->name is now given by $teacher->first_name $teacher->last_name");
 
         return redirect()->action('SubjectController@edit', ['subject' => $subject->id]);
