@@ -13,7 +13,7 @@ class Subject extends Model
 
     public function teachers()
     {
-        return $this->belongsToMany(Teacher::class);
+        return $this->belongsToMany(Teacher::class, 'subject_teachers');
     }
 
     public function exams()
