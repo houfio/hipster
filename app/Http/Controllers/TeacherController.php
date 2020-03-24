@@ -16,13 +16,10 @@ class TeacherController extends Controller
 
     public function index(Request $request)
     {
-        $page = (int)$request->query('page');
-        $pages = Teacher::count() / 10;
-        $teachers = Teacher::offset($page * 10)->limit(10)->get();
+        $teachers = Teacher::paginate(10);
 
         return view('teacher.index', [
-            'teachers' => $teachers,
-            'pages' => $pages
+            'teachers' => $teachers
         ]);
     }
 
@@ -47,13 +44,6 @@ class TeacherController extends Controller
         $request->session()->flash('status', "Teacher $teacher->first_name $teacher->last_name was created");
 
         return redirect()->action('TeacherController@index');
-    }
-
-    public function show(Teacher $teacher)
-    {
-        return view('teacher.show', [
-            'teacher' => $teacher
-        ]);
     }
 
     public function edit(Teacher $teacher)

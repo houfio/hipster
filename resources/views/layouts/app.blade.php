@@ -60,16 +60,26 @@
     </nav>
     <main class="py-4">
       <div class="container">
+        <div class="card p-4 border-0 mb-3 d-flex flex-row justify-content-between align-items-center">
+          <h1 class="display-4">
+            @yield('title')
+          </h1>
+          <div class="btn-group">
+            @yield('actions')
+          </div>
+        </div>
         @if (session('status'))
           <div class="alert alert-success">
             {{ session('status') }}
           </div>
         @endif
-        <div class="card p-4 border-0 mb-4">
-          <h1 class="display-4">
-            @yield('title')
-          </h1>
-        </div>
+        @if($errors)
+          @foreach ($errors->all() as $error)
+            <div class="alert alert-danger">
+              {{ $error }}
+            </div>
+          @endforeach
+        @endif
         <div class="card p-4 border-0">
           @yield('content')
         </div>

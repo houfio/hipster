@@ -12,7 +12,7 @@ Route::post('/attach/teacher/{subject}', 'AttachController@attachTeacher');
 Route::post('/detach/subject/{teacher}/{subject}', 'DetachController@detachSubject');
 Route::post('/detach/teacher/{subject}/{teacher}', 'DetachController@detachTeacher');
 
-Route::resource('teachers', 'TeacherController');
+Route::resource('teachers', 'TeacherController')->except(['show']);
 Route::resource('subjects', 'SubjectController');
 Route::resource('exams', 'ExamController');
 Route::resource('deadlines', 'DeadlineController');

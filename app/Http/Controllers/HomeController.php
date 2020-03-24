@@ -38,7 +38,7 @@ class HomeController extends Controller
             $semesters[$period->semester]['creditsReceived'] = isset($semester['creditsReceived']) ? $semester['creditsReceived'] + $received : $received;
         }
 
-        return view('home', [
+        return view('index', [
             'creditsNeeded' => $totalCreditsNeeded,
             'creditsReceived' => $totalCreditsReceived,
             'semesters' => $semesters

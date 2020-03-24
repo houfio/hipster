@@ -1,8 +1,6 @@
 @extends('layouts.app')
 
-@section('title')
-  Home
-@endsection
+@section('title' ,'Home')
 
 @section('content')
   <span>EC's: {{ $creditsReceived }}/{{ $creditsNeeded }}</span>
