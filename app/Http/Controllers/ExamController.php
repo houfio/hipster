@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exam;
 use App\Http\Requests\SearchRequest;
+use App\Subject;
 use Exception;
 use Illuminate\Http\Request;
 
@@ -28,7 +29,11 @@ class ExamController extends Controller
 
     public function create()
     {
-        return view('exam.create');
+        $subjects = Subject::all();
+
+        return view('exam.create', [
+            'subjects' => $subjects
+        ]);
     }
 
     public function store(Request $request)
