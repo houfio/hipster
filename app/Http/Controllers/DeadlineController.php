@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exam;
 use App\Http\Requests\CreateDeadlineRequest;
+use App\Http\Requests\FinishedRequest;
 use Illuminate\Http\Request;
 
 class DeadlineController extends Controller
@@ -38,6 +39,16 @@ class DeadlineController extends Controller
         $exam->save();
         $request->session()->flash('status', 'Deadline has been created!');
 
+        return redirect()->action('DeadlineController@index');
+    }
+
+    public function update(FinishedRequest $request, Exam $deadline)
+    {
+        $data = $request->validated();
+        $deadline->finished = $data['finished'] === 'on';
+        $deadline->save();
+
+        $request->session()->flash('status', "$deadline->name has been finished!");
         return redirect()->action('DeadlineController@index');
     }
 }

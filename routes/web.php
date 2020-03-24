@@ -15,4 +15,4 @@ Route::post('/detach/teacher/{subject}/{teacher}', 'DetachController@detachTeach
 Route::resource('teachers', 'TeacherController')->except(['show']);
 Route::resource('subjects', 'SubjectController');
 Route::resource('exams', 'ExamController');
-Route::resource('deadlines', 'DeadlineController')->only(['index', 'create', 'store']);
+Route::resource('deadlines', 'DeadlineController')->only(['index', 'create', 'store', 'update']);
