@@ -35,7 +35,7 @@ $factory->define(Exam::class, function (Faker $faker) {
     return [
         'name' => $names[array_rand($names)],
         'description' => $faker->text(255),
-        'due_on' => $faker->dateTimeBetween('now', '+8 weeks'),
+        'due_on' => $faker->boolean(40) ? $faker->dateTimeBetween('now', '+8 weeks') : null,
         'file' => $isAssessment && !$grade ? '/Path/To/File' : null,
         'grade' => $grade,
         'is_assessment' => $isAssessment

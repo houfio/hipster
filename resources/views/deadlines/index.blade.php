@@ -12,25 +12,6 @@
         <div class="card">
           <div class="card-header">Exam deadlines</div>
           <div class="card-body">
-            <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
-              <div class="input-group">
-                <form
-                    method="get"
-                    class="float-right"
-                    action="{{ action('DeadlineController@index') }}"
-                >
-                  @csrf
-                  <input
-                      type="text"
-                      name="search"
-                      id="search"
-                      class="form-control"
-                      placeholder="Search exam deadline"
-                      aria-label="Search exam deadline"
-                  >
-                </form>
-              </div>
-            </div>
             <ul class="list-group" style="margin: 1rem;">
               @foreach($exams as $exam)
                 <li class="list-group-item">
