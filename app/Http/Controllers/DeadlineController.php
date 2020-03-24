@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exam;
+use App\Http\Requests\CreateDeadlineRequest;
 use Illuminate\Http\Request;
 
 class DeadlineController extends Controller
@@ -26,8 +27,17 @@ class DeadlineController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(CreateDeadlineRequest $request)
     {
+        $data = $request->validated();
+        /** @var Exam $exam */
+        $exam = Exam::find($data['exam']);
 
+        $exam->due_on = $data['due_on'];
+
+        $exam->save();
+        $request->session()->flash('status', 'Deadline has been created!');
+
+        return redirect()->action('DeadlineController@index');
     }
 }

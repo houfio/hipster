@@ -16,6 +16,13 @@
               @foreach($exams as $exam)
                 <li class="list-group-item">
                   {{ $exam->name }} | Due on: {{ $exam->due_on }}
+                  <form method="post" action="{{ action('DeadlineController@store') }}">
+                    @csrf
+                    <div class="form-group col-md-6">
+                      <label for="due_on">Finished</label>
+                      <input type="checkbox" class="form-control" name="finished" id="finished" @if($exam->finished) checked @endif>
+                    </div>
+                  </form>
                 </li>
               @endforeach
             </ul>
