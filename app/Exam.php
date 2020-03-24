@@ -11,6 +11,10 @@ class Exam extends Model
     protected $table = 'exams';
     protected $primaryKey = 'id';
 
+    protected $casts = [
+        'grade' => 'float'
+    ];
+
     public function subject()
     {
         return $this->belongsTo(Subject::class);

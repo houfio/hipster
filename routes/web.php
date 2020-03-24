@@ -14,3 +14,4 @@ Route::post('/detach/teacher/{subject}/{teacher}', 'DetachController@detachTeach
 Route::resource('teachers', 'TeacherController');
 Route::resource('subjects', 'SubjectController');
 Route::resource('exams', 'ExamController');
+Route::resource('dashboard', 'DashboardController')->only(['index']);

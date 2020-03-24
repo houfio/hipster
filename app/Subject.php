@@ -11,6 +11,10 @@ class Subject extends Model
     protected $table = 'subjects';
     protected $primaryKey = 'id';
 
+    protected $casts = [
+        'credits' => 'int'
+    ];
+
     public function teachers()
     {
         return $this->belongsToMany(Teacher::class, 'subject_teachers');

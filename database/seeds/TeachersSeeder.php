@@ -8,10 +8,10 @@ class TeachersSeeder extends Seeder
 {
     public function run()
     {
-        $subjects = Subject::all()->pluck('id')->toArray();
+        $subjects = Subject::all();
 
         factory(Teacher::class, 20)->create()->each(function (Teacher $teacher) use ($subjects) {
-            $teacher->subjects()->attach($subjects[array_rand($subjects)]);
+            $teacher->subjects()->saveMany($subjects->random(rand(2, 6)));
         });
     }
 }

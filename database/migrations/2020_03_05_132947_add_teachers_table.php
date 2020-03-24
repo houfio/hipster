@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Hip7AddTeachersTable extends Migration
+class AddTeachersTable extends Migration
 {
     public function up()
     {
