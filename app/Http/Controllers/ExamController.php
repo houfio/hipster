@@ -17,22 +17,12 @@ class ExamController extends Controller
     public function index(SearchRequest $request)
     {
         $data = $request->validated();
-        $page = (int)$request->query('page');
-        $pages = Exam::count() / 10;
-
-        if (isset($data['search'])) {
-            $exams = Exam::offset($page * 10)
-                ->where('name', 'LIKE', "%{$data['search']}%")
-                ->orWhere('description', 'LIKE', "%{$data['search']}%")
-                ->limit(10)
-                ->get();
-        } else {
-            $exams = Exam::offset($page * 10)->limit(10)->get();
-        }
+        $search = isset($data['search']) ? $data['search'] : '';
+        $exams = Exam::where('name', 'LIKE', "%$search%")->paginate(10);
 
         return view('exam.index', [
             'exams' => $exams,
-            'pages' => $pages
+            'search' => $search
         ]);
     }
 
@@ -43,13 +33,6 @@ class ExamController extends Controller
 
     public function store(Request $request)
     {
-    }
-
-    public function show(Exam $exam)
-    {
-        return view('exam.show', [
-            'exam' => $exam
-        ]);
     }
 
     public function edit(Exam $exam)
@@ -69,8 +52,8 @@ class ExamController extends Controller
     public function destroy(Request $request, Exam $exam)
     {
         $exam->delete();
-        $request->session()->flash('status', 'This exam was deleted');
+        $request->session()->flash('status', "Exam $exam->name was deleted");
 
-        return redirect()->action('TeacherController@index');
+        return redirect()->action('ExamController@index');
     }
 }

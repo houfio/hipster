@@ -12,7 +12,7 @@ Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 Route::post('/attach/{teacher}/{subject}/{to}', 'AttachController@toggle');
 
 Route::resource('teachers', 'TeacherController')->except(['show']);
-Route::resource('subjects', 'SubjectController');
-Route::resource('exams', 'ExamController');
-Route::resource('deadlines', 'DeadlineController')->only(['index', 'create', 'store', 'update']);
+Route::resource('subjects', 'SubjectController')->except(['show']);
+Route::resource('exams', 'ExamController')->except(['show']);
+Route::resource('deadlines', 'DeadlineController')->except(['show']);
 Route::resource('tags', 'TagController')->only(['index', 'store', 'destroy']);
