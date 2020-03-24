@@ -22,14 +22,14 @@
           <x-navigation-item path="/">
             Home
           </x-navigation-item>
-          @can('viewAny', \App\Subject::class)
-            <x-navigation-item path="subjects">
-              Subjects
-            </x-navigation-item>
-          @endcan
           @can('viewAny', \App\Teacher::class)
             <x-navigation-item path="teachers">
               Teachers
+            </x-navigation-item>
+          @endcan
+          @can('viewAny', \App\Subject::class)
+            <x-navigation-item path="subjects">
+              Subjects
             </x-navigation-item>
           @endcan
           @can('viewAny', \App\Exam::class)
