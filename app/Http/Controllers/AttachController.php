@@ -12,7 +12,7 @@ class AttachController extends Controller
     {
         $teacher = Teacher::find($request->get('teacher'));
 
-        if (!$teacher) {
+        if (!$teacher || $subject->teachers->contains($teacher)) {
             return redirect()->action('SubjectController@edit', ['subject' => $subject->id]);
         }
 
