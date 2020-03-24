@@ -22,11 +22,23 @@
               <div class="form-row">
                 <div class="form-group col-md-6">
                   <label for="first_name">First name</label>
-                  <input value="{{ old('first_name') }}" type="text" class="form-control" name="first_name" id="first_name">
+                  <input
+                    value="{{ old('first_name') }}"
+                    type="text"
+                    class="form-control"
+                    name="first_name"
+                    id="first_name"
+                  >
                 </div>
                 <div class="form-group col-md-6">
                   <label for="last_name">Last name</label>
-                  <input value="{{ old('last_name') }}" type="text" class="form-control" name="last_name" id="last_name">
+                  <input
+                    value="{{ old('last_name') }}"
+                    type="text"
+                    class="form-control"
+                    name="last_name"
+                    id="last_name"
+                  >
                 </div>
               </div>
               <div class="form-row">
@@ -36,11 +48,17 @@
                 </div>
                 <div class="form-group col-md-6">
                   <label for="abbreviation">Abbreviation</label>
-                  <input value="{{ old('abbreviation') }}" type="text" class="form-control" name="abbreviation" id="abbreviation">
+                  <input
+                    value="{{ old('abbreviation') }}"
+                    type="text"
+                    class="form-control"
+                    name="abbreviation"
+                    id="abbreviation"
+                  >
                 </div>
               </div>
               <input type="submit" class="btn btn-secondary" value="Create">
-              <a href="{{ url('/teacher') }}" class="btn btn-secondary">Cancel</a>
+              <a href="{{ action('TeacherController@index') }}" class="btn btn-secondary">Cancel</a>
             </form>
           </div>
         </div>

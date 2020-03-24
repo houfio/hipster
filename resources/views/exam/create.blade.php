@@ -36,7 +36,7 @@
                 </div>
               </div>
               <input type="submit" class="btn btn-secondary" value="Create">
-              <a href="{{ url('/subject') }}" class="btn btn-secondary">Cancel</a>
+              <a href="{{ action('SubjectController@index') }}" class="btn btn-secondary">Cancel</a>
             </form>
           </div>
         </div>

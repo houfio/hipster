@@ -57,7 +57,7 @@
                 </div>
               </div>
               <input type="submit" class="btn btn-secondary" value="Save">
-              <a href="{{ url('/exam') }}" class="btn btn-secondary">Cancel</a>
+              <a href="{{ action('ExamController@index') }}" class="btn btn-secondary">Cancel</a>
             </form>
           </div>
         </div>
