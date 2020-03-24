@@ -14,10 +14,9 @@
       <input
         id="email"
         type="email"
-        class="form-control @error('email') is-invalid @enderror"
+        class="form-control"
         name="email"
         value="{{ old('email') }}"
-        required
       />
     </div>
     <div class="form-group">
@@ -27,7 +26,6 @@
         type="password"
         class="form-control"
         name="password"
-        required
       />
     </div>
     <div class="custom-control custom-checkbox">
