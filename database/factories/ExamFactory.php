@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factory;
 
 $factory->define(Exam::class, function (Faker $faker) {
     $isAssessment = $faker->boolean(60);
+    $dueOn = $faker->boolean(40);
 
     if ($faker->boolean(60)) {
         if ($faker->boolean(75)) {
@@ -35,7 +36,8 @@ $factory->define(Exam::class, function (Faker $faker) {
     return [
         'name' => $names[array_rand($names)],
         'description' => $faker->text(255),
-        'due_on' => $faker->boolean(40) ? $faker->dateTimeBetween('now', '+8 weeks') : null,
+        'due_on' => $dueOn ? $faker->dateTimeBetween('now', '+8 weeks') : null,
+        'finished' => $dueOn && $faker->boolean(60),
         'file' => $isAssessment && !$grade ? '/Path/To/File' : null,
         'grade' => $grade,
         'is_assessment' => $isAssessment
