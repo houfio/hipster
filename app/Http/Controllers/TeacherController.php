@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\TeacherRequest;
 use App\Teacher;
 use Exception;
-use Illuminate\Routing\Redirector;
-use Illuminate\View\View;
 use Illuminate\Http\Request;
 
 class TeacherController extends Controller

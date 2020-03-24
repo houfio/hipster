@@ -19,4 +19,9 @@ class Exam extends Model
     {
         return $this->belongsTo(Subject::class);
     }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'exam_tags');
+    }
 }

@@ -10,6 +10,7 @@ class DatabaseSeeder extends Seeder
         Artisan::call('migrate:fresh');
 
         $this->call([
+            TagsSeeder::class,
             RolesSeeder::class,
             PeriodsSeeder::class,
             SubjectsSeeder::class,

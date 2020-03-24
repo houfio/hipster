@@ -7,16 +7,37 @@ use Faker\Generator as Faker;
 use Illuminate\Database\Eloquent\Factory;
 
 $factory->define(Exam::class, function (Faker $faker) {
-    $startDate = $faker->dateTime;
     $isAssessment = $faker->boolean(60);
 
+    if ($faker->boolean(60)) {
+        if ($faker->boolean(75)) {
+            $grade = $faker->randomFloat(1, 5.5, 10);
+        } else {
+            $grade = $faker->randomFloat(1, 1, 5.5);
+        }
+    } else {
+        $grade = null;
+    }
+
+    $names = [
+        'Writing',
+        'Supersim',
+        'Presentation',
+        'Speaking',
+        'Studymate',
+        'Research',
+        'Improvement',
+        'Seabattle',
+        'Hangman',
+        'Multiple choice'
+    ];
+
     return [
-        'name' => 'Assessment',
+        'name' => $names[array_rand($names)],
         'description' => $faker->text(255),
-        'start_date' => $startDate,
-        'end_date' => $isAssessment ? $startDate->modify("+8 days") : null,
-        'file' => $isAssessment ? '/Path/To/File' : null,
-        'grade' => $faker->boolean(50) ? $faker->randomFloat(1, 1, 10) : null,
+        'due_on' => $faker->dateTimeBetween('now', '+8 weeks'),
+        'file' => $isAssessment && !$grade ? '/Path/To/File' : null,
+        'grade' => $grade,
         'is_assessment' => $isAssessment
     ];
 });

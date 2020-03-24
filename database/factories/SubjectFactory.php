@@ -7,7 +7,6 @@ use Faker\Generator as Faker;
 use Illuminate\Database\Eloquent\Factory;
 
 $factory->define(Subject::class, function (Faker $faker) {
-    static $i = 0;
     static $period = 1;
 
     $subjects = [
@@ -18,22 +17,21 @@ $factory->define(Subject::class, function (Faker $faker) {
         'WEBSPHP',
         'EPRES',
         'SLC',
-        'PROJ'
+        'PROJ',
+        'DPINT',
+        'IDONT',
+        'ICTMCSH',
+        'DB',
+        'ECOME'
     ];
 
-    if ($i >= sizeof($subjects)) {
-        $i = 0;
-    }
-
     $data = [
-        'name' => "$subjects[$i]$period",
+        'name' => "{$subjects[array_rand($subjects)]}$period",
         'description' => $faker->text(255),
         'credits' => $faker->numberBetween(1, 4),
         'period_id' => $faker->numberBetween(1, 16)
     ];
 
-    ++$i;
     ++$period;
-
     return $data;
 });
