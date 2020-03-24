@@ -12,10 +12,26 @@
         <div class="card">
           <div class="card-header">Exams</div>
           <div class="card-body">
+            <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
+              <div class="input-group">
+                <a
+                    href="{{ action('DashboardController@index') }}"
+                    class="btn btn-secondary float-right"
+                >
+                  Back
+                </a>
+              </div>
+            </div>
             <ul class="list-group" style="margin: 1rem;">
               @foreach($exams as $exam)
                 <li class="list-group-item">
                   {{ $exam->name }}
+                  <a
+                      href="{{ action('ExamController@show', ['exam' => $exam->id]) }}"
+                      class="btn btn-secondary float-right"
+                  >
+                    View
+                  </a>
                 </li>
               @endforeach
             </ul>
