@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SearchRequest extends FormRequest
+class CreateDeadlineRequest extends FormRequest
 {
     public function authorize()
     {
@@ -14,21 +14,21 @@ class SearchRequest extends FormRequest
     public function rules()
     {
         return [
-            'search' => 'max:255',
+            'due_on' => 'date',
         ];
     }
 
     public function messages()
     {
         return [
-            'max' => ':attribute cannot be longer than :max characters!'
+            'date' => ':attribute must be a date!'
         ];
     }
 
     public function attributes()
     {
         return [
-            'search' => 'Search',
+            'due_on' => 'Due on',
         ];
     }
 }

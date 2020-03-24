@@ -10,12 +10,12 @@
           </div>
         @endif
         <div class="card">
-          <div class="card-header">Exam deadlines</div>
+          <div class="card-header">Deadlines</div>
           <div class="card-body">
             <ul class="list-group" style="margin: 1rem;">
               @foreach($exams as $exam)
                 <li class="list-group-item">
-                  {{ $exam->name }}
+                  {{ $exam->name }} | Due on: {{ $exam->due_on }}
                 </li>
               @endforeach
             </ul>

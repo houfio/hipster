@@ -28,19 +28,19 @@ class SubjectRequest extends FormRequest
     public function messages()
     {
         return [
-            'required' => ':attribute is een verplicht veld!',
-            'max' => ':attribute mag niet langer zijn dan :max karakters!',
-            'unique' => ':attribute bestaat al!',
-            'numeric' => ':attribute moet een nummer zijn!'
+            'required' => ':attribute is mandatory!',
+            'max' => ':attribute cannot be longer than :max characters!',
+            'unique' => ':attribute already exists',
+            'numeric' => ':attribute must be a number'
         ];
     }
 
     public function attributes()
     {
         return [
-            'description' => 'Beschrijving',
-            'credits' => 'Studiepunten',
-            'name' => 'Naam'
+            'description' => 'Description',
+            'credits' => 'Credits',
+            'name' => 'Name'
         ];
     }
 }
