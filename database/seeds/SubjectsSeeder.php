@@ -1,10 +1,9 @@
 <?php
 
-use App\Exam;
 use App\Subject;
 use Illuminate\Database\Seeder;
 
-class SubjectSeeder extends Seeder
+class SubjectsSeeder extends Seeder
 {
     public function run()
     {
