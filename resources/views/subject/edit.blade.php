@@ -33,13 +33,29 @@
               <div class="form-row">
                 <div class="form-group col-md-12">
                   <label for="description">Description</label>
-                  <textarea type="text" class="form-control" name="description" id="description">
-                    {{ $subject->description }}
-                  </textarea>
+                  <textarea type="text" class="form-control" name="description" id="description">{{ $subject->description }}</textarea>
                 </div>
               </div>
               <input type="submit" class="btn btn-secondary" value="Save">
               <a href="{{ action('SubjectController@index') }}" class="btn btn-secondary">Cancel</a>
+            </form>
+            <form
+              method="post"
+              action="{{ action('AttachController@attachTeacher', ['subject' => $subject->id]) }}"
+              class="mt-4"
+            >
+              <div class="input-group">
+                <select id="teacher" name="teacher" class="form-control">
+                  @foreach ($teachers as $teacher)
+                    <option value="{{ $teacher->id }}">
+                      {{$teacher->first_name}} {{$teacher->last_name}}
+                    </option>
+                  @endforeach
+                </select>
+                <div class="input-group-append">
+                  <button class="btn btn-secondary">Attach</button>
+                </div>
+              </div>
             </form>
           </div>
           <ul class="list-group" style="margin-top: 1rem; margin-bottom: 1rem;">

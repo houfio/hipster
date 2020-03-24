@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\SearchRequest;
 use App\Http\Requests\SubjectRequest;
 use App\Subject;
+use App\Teacher;
 use Exception;
 use Illuminate\Routing\Redirector;
 use Illuminate\View\View;
@@ -12,10 +13,6 @@ use Illuminate\Http\Request;
 
 class SubjectController extends Controller
 {
-    /**
-     * @param SearchRequest $request
-     * @return View
-     */
     public function index(SearchRequest $request)
     {
         $data = $request->validated();
@@ -39,38 +36,28 @@ class SubjectController extends Controller
         ]);
     }
 
-    /**
-     * @return View
-     */
     public function create()
     {
         return view('subject.create');
     }
 
-    /**
-     * @param SubjectRequest $request
-     * @return Redirector
-     */
     public function store(SubjectRequest $request)
     {
         $data = $request->validated();
 
         $subject = new Subject();
 
-        $subject->description = $data['description'];
+        $subject->description = $data['description']->trim();
         $subject->name = $data['name'];
         $subject->credits = $data['credits'];
 
         $subject->save();
 
         $request->session()->flash('status', "Subject $subject->name was created");
-        return redirect('/subject');
+
+        return redirect()->action('SubjectController@index');
     }
 
-    /**
-     * @param Subject $subject
-     * @return View
-     */
     public function show(Subject $subject)
     {
         return view('subject.show', [
@@ -78,22 +65,14 @@ class SubjectController extends Controller
         ]);
     }
 
-    /**
-     * @param Subject $subject
-     * @return View
-     */
     public function edit(Subject $subject)
     {
         return view('subject.edit', [
-            'subject' => $subject
+            'subject' => $subject,
+            'teachers' => Teacher::get()
         ]);
     }
 
-    /**
-     * @param SubjectRequest $request
-     * @param Subject $subject
-     * @return Redirector
-     */
     public function update(SubjectRequest $request, Subject $subject)
     {
         $data = $request->validated();
@@ -105,19 +84,18 @@ class SubjectController extends Controller
         $subject->save();
 
         $request->session()->flash('status', "Subject $subject->name was updated");
-        return redirect("/subject/$subject->id/edit");
+
+        return redirect()->action('SubjectController@edit', ['subject' => $subject->id]);
     }
 
     /**
-     * @param Request $request
-     * @param Subject $subject
-     * @return Redirector
      * @throws Exception
      */
     public function destroy(Request $request, Subject $subject)
     {
         $subject->delete();
         $request->session()->flash('status', "Subject $subject->name was deleted");
-        return redirect('/subject');
+
+        return redirect()->action('SubjectController@index');
     }
 }
