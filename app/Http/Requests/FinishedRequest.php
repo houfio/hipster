@@ -29,7 +29,7 @@ class FinishedRequest extends FormRequest
     public function attributes()
     {
         return [
-            'finished' => 'Finished',
+            'finished' => 'Finished'
         ];
     }
 }

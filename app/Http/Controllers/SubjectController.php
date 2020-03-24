@@ -19,23 +19,12 @@ class SubjectController extends Controller
     public function index(SearchRequest $request)
     {
         $data = $request->validated();
-        $page = (int)$request->query('page');
-        $pages = Subject::count() / 10;
-
-        if (isset($data['search'])) {
-            $subjects = Subject::offset($page * 10)
-                ->where('name', 'LIKE', "%{$data['search']}%")
-                ->orWhere('credits', 'LIKE', "%{$data['search']}%")
-                ->orWhere('description', 'LIKE', "%{$data['search']}%")
-                ->limit(10)
-                ->get();
-        } else {
-            $subjects = Subject::offset($page * 10)->limit(10)->get();
-        }
+        $search = isset($data['search']) ? $data['search'] : '';
+        $subjects = Subject::where('name', 'LIKE', "%$search%")->paginate(10);
 
         return view('subject.index', [
             'subjects' => $subjects,
-            'pages' => $pages
+            'search' => $search
         ]);
     }
 

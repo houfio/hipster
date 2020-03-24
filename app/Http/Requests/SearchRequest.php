@@ -28,7 +28,7 @@ class SearchRequest extends FormRequest
     public function attributes()
     {
         return [
-            'search' => 'Search',
+            'search' => 'Search'
         ];
     }
 }
