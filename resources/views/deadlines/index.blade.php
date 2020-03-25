@@ -12,10 +12,11 @@
       <input type="hidden" name="page" value="{{ $exams->currentPage() }}"/>
       <div class="input-group">
         <select onchange="document.getElementById('sort-by').submit()" class="form-control" name="sort" id="sort">
-          <x-option value="due_on" :current="$sort">Date</x-option>
-          <x-option value="teachers.first_name" :current="$sort">Teacher</x-option>
-          <x-option value="subjects.name" :current="$sort">Subject</x-option>
-          <x-option value="is_assessment" :current="$sort">Category</x-option>
+          @foreach($sortOptions as $key => $value)
+            <option value="{{ $key }}" @if($sort === $key) selected @endif>
+              {{ $value }}
+            </option>
+          @endforeach
         </select>
         <select
           onchange="document.getElementById('sort-by').submit()"
@@ -24,15 +25,12 @@
           id="order"
           @if(!$sort) disabled @endif
         >
-          <x-option value="asc" :current="$order">Ascending</x-option>
-          <x-option value="desc" :current="$order">Descending</x-option>
+          @foreach($orderOptions as $key => $value)
+            <option value="{{ $key }}" @if($order === $key) selected @endif>
+              {{ $value }}
+            </option>
+          @endforeach
         </select>
-        <a
-          class="btn btn-secondary input-group-append"
-          href="{{ action('DeadlineController@index') }}?page={{ $exams->currentPage() }}"
-        >
-          Reset
-        </a>
       </div>
     </form>
     {{ $exams->appends(['sort' => $sort, 'order' => $order])->links() }}

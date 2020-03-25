@@ -16,26 +16,39 @@ class DeadlineController extends Controller
     {
         Gate::authorize('can-view-deadlines');
 
-        $sort = $request->query('sort') ?? 'due_on';
-        $order = $request->query('order') ?? 'asc';
+        $sortOptions = ['due_on' => 'Due on', 'subject_name' => 'Subject', 'teacher_name' => 'Teacher', 'is_assessment' => 'Assessment'];
+        $orderOptions = ['asc' => 'Ascending', 'desc' => 'Descending'];
+
+        $sort = $this->getOrFirst($request->query('sort'), $sortOptions);
+        $order = $this->getOrFirst($request->query('order'), $orderOptions);
         $exams = Exam::join('subjects', 'exams.subject_id', '=', 'subjects.id')
             ->leftJoin('subject_teachers', function ($join) {
                 $join->on('subjects.id', '=', 'subject_teachers.subject_id');
                 $join->on('subject_teachers.is_coordinator', '=', DB::raw(1));
             })
             ->leftJoin('teachers', 'subject_teachers.teacher_id', '=', 'teachers.id')
-            ->select('exams.*', 'subjects.name as subject_name')
-            ->where('due_on', '!=', null);
-
-        if ($order) {
-            $exams->orderBy($sort, $order);
-        }
+            ->select('exams.*', 'subjects.name as subject_name', 'teachers.first_name as teacher_name')
+            ->where('due_on', '!=', null)
+            ->orderBy($sort, $order)
+            ->paginate(10);
 
         return view('deadlines.index', [
-            'exams' => $exams->paginate(10),
+            'exams' => $exams,
             'sort' => $sort,
-            'order' => $order
+            'sortOptions' => $sortOptions,
+            'order' => $order,
+            'orderOptions' => $orderOptions
         ]);
+    }
+
+    protected function getOrFirst(?string $given, array $options): string {
+        $arr = array_keys($options);
+
+        if ($given && in_array($given, $arr)) {
+            return $given;
+        }
+
+        return $arr[0];
     }
 
     public function create()
