@@ -7,7 +7,7 @@
 @endsection
 
 @section('content')
-  <form method="post" id="login-form" action="{{ route('login') }}">
+  <form method="post" id="login-form" action="{{ action('Auth\LoginController@login') }}">
     @csrf
     <div class="form-group">
       <label for="email">Email address</label>
