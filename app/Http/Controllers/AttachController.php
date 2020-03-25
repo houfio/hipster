@@ -5,11 +5,14 @@ namespace App\Http\Controllers;
 use App\Subject;
 use App\Teacher;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class AttachController extends Controller
 {
     public function toggle(Request $request, Teacher $teacher, Subject $subject, string $to)
     {
+        Gate::authorize('attach-detach');
+
         if ($subject->teachers->contains($teacher)) {
             $subject->teachers()->detach($teacher);
             $request->session()->flash('status', "$subject->name is not given by $teacher->first_name $teacher->last_name anymore");
