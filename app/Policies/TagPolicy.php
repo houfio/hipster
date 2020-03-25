@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Exam;
+use App\Tag;
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -15,7 +15,7 @@ class TagPolicy
         return $user->isManager();
     }
 
-    public function view(User $user, Exam $exam)
+    public function view(User $user, Tag $tag)
     {
         return $user->isManager();
     }
@@ -25,12 +25,12 @@ class TagPolicy
         return $user->isManager();
     }
 
-    public function update(User $user, Exam $exam)
+    public function update(User $user, Tag $tag)
     {
         return $user->isManager();
     }
 
-    public function delete(User $user, Exam $exam)
+    public function delete(User $user, Tag $tag)
     {
         return $user->isManager();
     }
