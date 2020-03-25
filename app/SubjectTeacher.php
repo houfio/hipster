@@ -2,9 +2,9 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class SubjectTeacher extends Model
+class SubjectTeacher extends Pivot
 {
     public $timestamps = true;
 

@@ -12,11 +12,11 @@
     @csrf
     @method('put')
     <div class="form-row">
-      <div class="form-group col-6">
+      <div class="form-group col-4">
         <label for="name">Name</label>
         <input value="{{ $subject->name }}" type="text" class="form-control" name="name" id="name">
       </div>
-      <div class="form-group col-6">
+      <div class="form-group col-4">
         <label for="credits">Credits</label>
         <input value="{{ $subject->credits }}" type="text" class="form-control" name="credits" id="credits">
       </div>
@@ -48,6 +48,16 @@
           <x-form-button :id="'toggle-form-' . $teacher->id" type="primary">
             {{ $attached->contains($teacher) ? 'Detach' : 'Attach' }}
           </x-form-button>
+          {{ isset($teacher->pivot->is_coordinator) ? 'True' : 'False' }}
+          @if(isset($teacher->pivot) && !$teacher->pivot->is_coordinator)
+            <x-form-button :id="'toggle-coordinator-' . $teacher->id" type="primary">
+              Make coordinator
+            </x-form-button>
+          @else
+            <button class="btn btn-primary" disabled>
+              Is coordinator
+            </button>
+          @endif
         </x-slot>
         {{ $teacher->first_name }} {{ $teacher->last_name }}
         <form
@@ -55,6 +65,14 @@
           method="post"
           action="{{ action('AttachController@toggle', ['teacher' => $teacher->id, 'subject' => $subject->id, 'to' => 'subject']) }}"
           class="d-none"
+        >
+          @csrf
+        </form>
+        <form
+            id="toggle-coordinator-{{ $teacher->id }}"
+            method="post"
+            action="{{ action('AttachController@toggle', ['teacher' => $teacher->id, 'subject' => $subject->id, 'to' => 'subject']) }}"
+            class="d-none"
         >
           @csrf
         </form>
