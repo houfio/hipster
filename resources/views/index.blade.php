@@ -1,96 +1,80 @@
 @extends('layouts.app')
 
-@section('title', 'Home')
+@section('title', 'Dashboard')
 
 @section('content')
-  <div>
-    <img src="{{ $qr }}"/>
+  <div class="progress bg-white mb-3">
+    <div class="progress-bar" role="progressbar"
+         style="width: {{ 100 / $semester['needed'] * $semester['received'] }}%">
+      {{ $semester['received'] }}/{{ $semester['needed'] }}
+    </div>
   </div>
-  <span>EC's: {{ $creditsReceived }}/{{ $creditsNeeded }}</span>
-  <div class="progress mb-4">
-    <div class="progress-bar" role="progressbar" style="width: {{ 100 / $creditsNeeded * $creditsReceived }}%"></div>
-  </div>
-  <div class="accordion" id="accordionSemesters">
-    @foreach($semesters as $semesterKey => $semester)
-      <div class="card">
-        <div class="card-header" id="headingSemester{{ $semesterKey }}">
-          <h2 class="mb-0">
-            <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
-                    data-target="#collapseSemester{{ $semesterKey }}" aria-expanded="false" >
-              Semester {{ $semesterKey }}
-            </button>
-          </h2>
-        </div>
-        <div id="collapseSemester{{ $semesterKey }}" class="collapse"
-             aria-labelledby="headingSemester{{ $semesterKey }}"
-             data-parent="#accordionSemesters">
-          <div class="card-body">
-            <span>EC's: {{ $semester['creditsReceived'] }}/{{ $semester['creditsNeeded'] }}</span>
-            <div class="progress mb-4">
-              <div class="progress-bar" role="progressbar"
-                   style="width: {{ 100 / $semester['creditsNeeded'] * $semester['creditsReceived'] }}%"
-                   aria-valuenow="{{ $semester['creditsReceived'] }}" aria-valuemin="0"
-                   aria-valuemax="{{ $semester['creditsNeeded'] }}"></div>
-            </div>
-            <div class="accordion" id="accordionPeriods">
-              @foreach($semester['periods'] as $periodKey => $period)
-                <div class="card">
-                  <div class="card-header" id="headingPeriod{{ $periodKey }}">
-                    <h2 class="mb-0">
-                      <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
-                              data-target="#collapsePeriod{{ $periodKey }}"
-                              aria-expanded="false" aria-controls="collapsePeriod{{ $periodKey }}">
-                        Period {{ $periodKey }}
-                      </button>
-                    </h2>
-                  </div>
-                  <div id="collapsePeriod{{ $periodKey }}" class="collapse"
-                       aria-labelledby="headingPeriod{{ $periodKey }}"
-                       data-parent="#accordionPeriods">
-                    <div class="card-body">
-                      <span>EC's: {{ $period['creditsReceived'] }}/{{ $period['creditsNeeded'] }}</span>
-                      <div class="progress mb-4">
-                        <div class="progress-bar" role="progressbar"
-                             style="width: {{ 100 / $period['creditsNeeded'] * $period['creditsReceived'] }}%"
-                             aria-valuenow="{{ $period['creditsReceived'] }}" aria-valuemin="0"
-                             aria-valuemax="{{ $period['creditsNeeded'] }}"></div>
-                      </div>
-                      <table class="table">
-                        <thead>
-                          <tr>
-                            <th scope="col">Subject</th>
-                            <th scope="col">EC's</th>
-                            <th scope="col">Passed</th>
-                            <th scope="col">Exams</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          @foreach($period['subjects'] as $subject)
-                            <tr>
-                              <th scope="row">{{ $subject->name }}</th>
-                              <td>{{ $subject->exams()->min('grade') >= 5.5 ? $subject->credits : 0 }}
-                                /{{ $subject->credits }}</td>
-                              @if($subject->exams()->min('grade') >= 5.5)
-                                <td style="color: green;">Passed</td>
-                              @elseif($subject->exams()->min('grade'))
-                                <td style="color: red;">Not passed</td>
-                              @else
-                                <td>No exams graded yet</td>
-                              @endif
-                              <td><a href="{{ action('HomeController@exams', ['subject' => $subject->id]) }}">Show
-                                  exams ></a></td>
-                            </tr>
-                          @endforeach
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              @endforeach
-            </div>
+  @foreach($semester['periods'] as $period)
+    <div class="card p-4 border-0 mb-3">
+      <h2 class="display-5 mb-4">
+        Period {{ $period['period'] }}
+      </h2>
+      <table class="table mb-0">
+        <thead>
+          <tr>
+            <th>Subject</th>
+            <th>Credits</th>
+            <th>Passed</th>
+          </tr>
+        </thead>
+        <tbody>
+          @foreach($period['subjects'] as $subject)
+            <tr>
+              <th>{{ $subject->name }}</th>
+              <td>{{ $subject->exams()->min('grade') >= 5.5 ? $subject->credits : 0 }}/{{ $subject->credits }}</td>
+              @if($subject->exams()->min('grade') >= 5.5)
+                <td class="text-success">Passed</td>
+              @elseif($subject->exams()->min('grade'))
+                <td class="text-danger">Not passed</td>
+              @else
+                <td>Not graded</td>
+              @endif
+            </tr>
+          @endforeach
+        </tbody>
+      </table>
+    </div>
+  @endforeach
+@endsection
+
+@section('main')
+  <div class="d-flex mt-5 pt-2">
+    <aside class="w-sidebar">
+      <div class="position-fixed w-sidebar vh-100 bg-white d-flex flex-column align-items-stretch py-4 text-center">
+        <h1 class="display-5">
+          {{ config('app.name', 'Laravel') }}
+        </h1>
+        <div class="progress mx-3 mt-3 mb-4">
+          <div class="progress-bar" role="progressbar" style="width: {{ 100 / $totalNeeded * $totalReceived }}%">
+            {{ $totalReceived }}/{{ $totalNeeded }}
           </div>
         </div>
+        <div class="btn-group-vertical mx-3">
+          @foreach($semesters as $s)
+            <a
+              href="{{ action('HomeController@index', ['semester' => $s]) }}"
+              class="btn btn-light @if($semester['semester'] === $s) active @endif"
+            >
+              Semester {{ $s }} (Y{{ ceil($s / 2) }})
+            </a>
+          @endforeach
+        </div>
       </div>
-    @endforeach
+    </aside>
+    <main class="d-flex flex-column flex-grow-1 p-3">
+      @if($semester['semester'])
+        <div class="card p-4 border-0 mb-3 d-flex flex-row justify-content-between align-items-center">
+          <h1 class="display-4">
+            Semester {{ $semester['semester'] }}
+          </h1>
+        </div>
+        @yield('content')
+      @endif
+    </main>
   </div>
 @endsection

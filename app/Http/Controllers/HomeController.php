@@ -3,55 +3,49 @@
 namespace App\Http\Controllers;
 
 use App\Period;
-use App\Subject;
-use chillerlan\QRCode\QRCode;
 
 class HomeController extends Controller
 {
-    public function index()
+    public function index(?int $semester = null)
     {
-        $qr = (new QRCode)->render(url('/'));
         $periods = Period::all();
-        $semesters = [];
-        $totalCreditsReceived = 0;
-        $totalCreditsNeeded = 0;
+        $semesters = Period::groupBy('semester')->pluck('semester', 'semester');
+        $totalNeeded = 0;
+        $totalReceived = 0;
+        $semesterArr = [
+            'semester' => $semester,
+            'needed' => 0,
+            'received' => 0,
+            'periods' => []
+        ];
 
         foreach ($periods as $period) {
             $credits = $period->subjects()->sum('credits');
-            $received = 0;
+            $received = $period->subjects()->whereHas('exams', function ($query) {
+                $query->select('grade')->groupBy('grade')->havingRaw('min(grade) >= 5.5');
+            })->sum('credits');
 
-            $period->subjects()->each(function (Subject $subject) use (&$received) {
-                if ($subject->exams()->min('grade') >= 5.5) {
-                    $received += $subject->credits;
-                }
-            });
+            $totalNeeded += $credits;
+            $totalReceived += $received;
 
-            $semesters[$period->semester]['periods'][$period->period] = [
-                'subjects' => $period->subjects()->get(),
-                'creditsNeeded' => $credits,
-                'creditsReceived' => $received
-            ];
-
-            $totalCreditsReceived += $received;
-            $totalCreditsNeeded += $credits;
-
-            $semester = $semesters[$period->semester];
-            $semesters[$period->semester]['creditsNeeded'] = isset($semester['creditsNeeded']) ? $semester['creditsNeeded'] + $credits : $credits;
-            $semesters[$period->semester]['creditsReceived'] = isset($semester['creditsReceived']) ? $semester['creditsReceived'] + $received : $received;
+            if ($period->semester === $semester) {
+                $semesterArr['needed'] += $credits;
+                $semesterArr['received'] += $received;
+                $semesterArr['periods'][] = [
+                    'period' => $period->period,
+                    'subjects' => $period->subjects->all()
+                ];
+            }
         }
 
-        return view('index', [
-            'creditsNeeded' => $totalCreditsNeeded,
-            'creditsReceived' => $totalCreditsReceived,
-            'semesters' => $semesters,
-            'qr' => $qr
-        ]);
-    }
+        $totalNeeded = $totalNeeded ?: 1;
+        $semesterArr['needed'] = $semesterArr['needed'] ?: 1;
 
-    public function exams(Subject $subject)
-    {
-        return view('exams', [
-            'exams' => $subject->exams()->get()
+        return view('index', [
+            'totalNeeded' => $totalNeeded,
+            'totalReceived' => $totalReceived,
+            'semester' => $semesterArr,
+            'semesters' => $semesters
         ]);
     }
 }

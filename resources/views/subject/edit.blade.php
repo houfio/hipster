@@ -12,11 +12,11 @@
     @csrf
     @method('put')
     <div class="form-row">
-      <div class="form-group col-md-4">
+      <div class="form-group col-6">
         <label for="name">Name</label>
         <input value="{{ $subject->name }}" type="text" class="form-control" name="name" id="name">
       </div>
-      <div class="form-group col-md-4">
+      <div class="form-group col-6">
         <label for="credits">Credits</label>
         <input value="{{ $subject->credits }}" type="text" class="form-control" name="credits" id="credits">
       </div>
@@ -30,7 +30,7 @@
       </div>
     </div>
     <div class="form-row">
-      <div class="form-group col-md-12">
+      <div class="form-group col-12">
         <label for="description">Description</label>
         <textarea type="text" class="form-control" name="description" id="description">{{ $subject->description }}</textarea>
       </div>

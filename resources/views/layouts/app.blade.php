@@ -10,7 +10,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet"/>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-white">
       <span class="navbar-brand">
         {{ config('app.name', 'Laravel') }}
       </span>
@@ -20,7 +20,7 @@
       <div class="collapse navbar-collapse" id="navbar">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
           <x-navigation-item path="/">
-            Home
+            Dashboard
           </x-navigation-item>
           @can('viewAny', \App\Teacher::class)
             <x-navigation-item path="teachers">
@@ -56,7 +56,7 @@
             >
               Logout
             </x-navigation-item>
-            <form id="logout-form" action="{{ route('logout') }}" method="post">
+            <form id="logout-form" action="{{ action('Auth\LoginController@logout') }}" method="post">
               @csrf
             </form>
           @endauth
@@ -68,32 +68,34 @@
         </ul>
       </div>
     </nav>
-    <main class="py-4">
-      <div class="container">
-        <div class="card p-4 border-0 mb-3 d-flex flex-row justify-content-between align-items-center">
-          <h1 class="display-4">
-            @yield('title')
-          </h1>
-          <div class="btn-group">
-            @yield('actions')
-          </div>
-        </div>
-        @if (session('status'))
-          <div class="alert alert-success">
-            {{ session('status') }}
-          </div>
-        @endif
-        @if($errors)
-          @foreach ($errors->all() as $error)
-            <div class="alert alert-danger">
-              {{ $error }}
+    @section('main')
+      <main class="mt-5 py-4">
+        <div class="container">
+          <div class="card p-4 border-0 mb-3 d-flex flex-row justify-content-between align-items-center">
+            <h1 class="display-4">
+              @yield('title')
+            </h1>
+            <div class="btn-group">
+              @yield('actions')
             </div>
-          @endforeach
-        @endif
-        <div class="card p-4 border-0">
-          @yield('content')
+          </div>
+          @if (session('status'))
+            <div class="alert alert-success">
+              {{ session('status') }}
+            </div>
+          @endif
+          @if($errors)
+            @foreach ($errors->all() as $error)
+              <div class="alert alert-danger">
+                {{ $error }}
+              </div>
+            @endforeach
+          @endif
+          <div class="card p-4 border-0">
+            @yield('content')
+          </div>
         </div>
-      </div>
-    </main>
+      </main>
+    @show
   </body>
 </html>

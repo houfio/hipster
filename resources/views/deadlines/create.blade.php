@@ -3,7 +3,7 @@
 @section('content')
   <div class="container">
     <div class="row justify-content-center">
-      <div class="col-md-8">
+      <div class="col-8">
         @if (session('status'))
           <div class="alert alert-success" role="alert">
             {{ session('status') }}
@@ -20,11 +20,11 @@
             <form method="post" action="{{ action('DeadlineController@store') }}">
               @csrf
               <div class="form-row">
-                <div class="form-group col-md-6">
+                <div class="form-group col-6">
                   <label for="due_on">Due on</label>
                   <input value="{{ old('name') }}" type="datetime-local" class="form-control" name="due_on" id="due_on">
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-6">
                   <label for="exam">Exam</label>
                   <select id="exam" name="exam" class="form-control">
                     @foreach ($exams as $exam)

@@ -2,13 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', 'HomeController@index')->name('home');
-Route::get('/info/{subject}', 'HomeController@exams');
-Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
-Route::get('/assessments/{file}', 'FileController@downloadAssessment');
+Route::get('/', 'HomeController@index');
+Route::get('/semester/{semester}', 'HomeController@index');
 
 Route::post('login', 'Auth\LoginController@login');
-Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+Route::post('logout', 'Auth\LoginController@logout');
+
+Route::get('/assessments/{file}', 'FileController@downloadAssessment');
 Route::post('/attach/{teacher}/{subject}/{to}', 'AttachController@toggle');
 
 Route::resource('teachers', 'TeacherController')->except(['show']);

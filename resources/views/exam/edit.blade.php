@@ -12,15 +12,17 @@
     @csrf
     @method('put')
     <div class="form-row">
-      <div class="form-group col-md-4">
+      <div class="form-group col-6">
+      <div class="form-group col-4">
         <label for="name">Name</label>
         <input value="{{ $exam->name }}" type="text" class="form-control" name="name" id="name">
       </div>
-      <div class="form-group col-md-4">
+      <div class="form-group col-6">
+      <div class="form-group col-4">
         <label for="grade">Grade</label>
         <input value="{{ $exam->grade }}" type="text" class="form-control" name="grade" id="grade">
       </div>
-      <div class="form-group col-md-4">
+      <div class="form-group col-4">
         <label for="subject">Subject</label>
         <select class="form-control" name="subject" id="subject">
           @foreach($subjects as $subject)
@@ -30,10 +32,9 @@
       </div>
     </div>
     <div class="form-row">
-      <div class="form-group col-md-12">
+      <div class="form-group col-12">
         <label for="description">Description</label>
-        <textarea type="text" class="form-control" name="description"
-                  id="description">{{ $exam->description }}</textarea>
+        <textarea type="text" class="form-control" name="description" id="description">{{ $exam->description }}</textarea>
       </div>
     </div>
     <div class="form-row">
@@ -47,8 +48,13 @@
         @endif
       </div>
       <div class="custom-control custom-checkbox mx-1">
-        <input type="checkbox" class="custom-control-input" id="is_assessment" name="is_assessment"
-               @if($exam->is_assessment) checked @endif/>
+        <input
+          type="checkbox"
+          class="custom-control-input"
+          id="is_assessment"
+          name="is_assessment"
+          @if($exam->is_assessment) checked @endif
+        />
         <label class="custom-control-label" for="is_assessment">Assessment</label>
       </div>
     </div>

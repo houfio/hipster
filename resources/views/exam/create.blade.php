@@ -11,11 +11,11 @@
   <form method="post" enctype="multipart/form-data" id="create-form" action="{{ action('ExamController@store') }}">
     @csrf
     <div class="form-row">
-      <div class="form-group col-md-4">
+      <div class="form-group col-4">
         <label for="name">Name</label>
         <input value="{{ old('name') }}" type="text" class="form-control" name="name" id="name"/>
       </div>
-      <div class="form-group col-md-4">
+      <div class="form-group col-4">
         <label for="subject">Subject</label>
         <select class="form-control" name="subject" id="subject">
           @foreach($subjects as $subject)
@@ -25,7 +25,7 @@
       </div>
     </div>
     <div class="form-row">
-      <div class="form-group col-md-12 mb-0">
+      <div class="form-group col-12 mb-0">
         <label for="description">Description</label>
         <textarea type="text" class="form-control" name="description" id="description">{{ old('description') }}</textarea>
       </div>

@@ -3,7 +3,7 @@
 @section('content')
   <div class="container">
     <div class="row justify-content-center">
-      <div class="col-md-8">
+      <div class="col-8">
         @if (session('status'))
           <div class="alert alert-success" role="alert">
             {{ session('status') }}
@@ -19,7 +19,7 @@
                   <form method="post" id="form" action="{{ action('DeadlineController@update', ['deadline' => $exam->id]) }}">
                     @csrf
                     @method('put')
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-6">
                       <label for="due_on">Finished</label>
                       <input onclick="document.getElementById('form').submit()" type="checkbox" class="form-control" name="finished" id="finished" @if($exam->finished) checked @endif>
                     </div>
