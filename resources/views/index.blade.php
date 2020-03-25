@@ -64,6 +64,8 @@
             </a>
           @endforeach
         </div>
+        <div class="flex-grow-1"></div>
+        <img src="{{ $qr }}" class="w-100 mb-4"/>
       </div>
     </aside>
     <main class="d-flex flex-column flex-grow-1 p-3">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Period;
+use chillerlan\QRCode\QRCode;
 
 class HomeController extends Controller
 {
@@ -45,7 +46,8 @@ class HomeController extends Controller
             'totalNeeded' => $totalNeeded,
             'totalReceived' => $totalReceived,
             'semester' => $semesterArr,
-            'semesters' => $semesters
+            'semesters' => $semesters,
+            'qr' => (new QRCode())->render(url('/'))
         ]);
     }
 }
