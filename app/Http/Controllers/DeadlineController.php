@@ -5,17 +5,14 @@ namespace App\Http\Controllers;
 use App\Exam;
 use App\Http\Requests\CreateDeadlineRequest;
 use App\Http\Requests\FinishedRequest;
-use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class DeadlineController extends Controller
 {
-    /**
-     * @throws AuthorizationException
-     */
     public function index(Request $request)
     {
-        $this->authorize('viewAny');
+        Gate::authorize('can-view-deadlines');
 
         $page = (int)$request->query('page');
         $pages = Exam::where('due_on', '!=', null)->count() / 10;
@@ -27,24 +24,18 @@ class DeadlineController extends Controller
         ]);
     }
 
-    /**
-     * @throws AuthorizationException
-     */
     public function create()
     {
-        $this->authorize('create');
+        Gate::authorize('can-view-deadlines');
 
         return view('deadlines.create', [
             'exams' => Exam::where('due_on', '=', null)->get()
         ]);
     }
 
-    /**
-     * @throws AuthorizationException
-     */
     public function store(CreateDeadlineRequest $request)
     {
-        $this->authorize('create');
+        Gate::authorize('can-view-deadlines');
 
         $data = $request->validated();
         /** @var Exam $exam */
@@ -58,12 +49,9 @@ class DeadlineController extends Controller
         return redirect()->action('DeadlineController@index');
     }
 
-    /**
-     * @throws AuthorizationException
-     */
     public function update(FinishedRequest $request, Exam $deadline)
     {
-        $this->authorize('update');
+        Gate::authorize('can-view-deadlines');
 
         $data = $request->validated();
         $deadline->finished = $data['finished'] === 'on';

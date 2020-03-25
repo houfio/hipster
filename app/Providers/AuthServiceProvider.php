@@ -19,5 +19,9 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('attach-detach', function (User $user) {
             return $user->isAdmin();
         });
+
+        Gate::define('can-view-deadlines', function (User $user) {
+            return $user->isManager();
+        });
     }
 }
