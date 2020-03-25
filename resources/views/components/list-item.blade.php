@@ -8,7 +8,7 @@
       </x-form-button>
     @endif
     @if(isset($edit))
-      <a href="{{ $edit }}" class="btn btn-primary">Edit</a>
+      <a href="{{ $edit }}" dusk="{{ $duskSelector ?? '' }}" class="btn btn-primary">Edit</a>
     @endif
   </div>
   @if(isset($delete))

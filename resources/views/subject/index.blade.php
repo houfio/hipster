@@ -19,6 +19,7 @@
         :id="$subject->id"
         :edit="action('SubjectController@edit', ['subject' => $subject->id])"
         :delete="action('SubjectController@destroy', ['subject' => $subject->id])"
+        duskSelector="edit-subject"
       >
         {{ $subject->name }}
       </x-list-item>
