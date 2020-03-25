@@ -23,6 +23,7 @@
       <x-list-item
           :id="$tag->id"
           :delete="action('TagController@destroy', ['tag' => $tag->id])"
+          :duskSelector="'tag_' . $tag->name"
       >
         {{ $tag->name }}
       </x-list-item>

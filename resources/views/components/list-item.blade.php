@@ -3,7 +3,7 @@
   <div class="btn-group">
     {{ isset($extra) ? $extra : '' }}
     @if(isset($delete))
-      <x-form-button :id="'delete-form-' . $id" type="light">
+      <x-form-button :id="'delete-form-' . $id" type="light" :duskSelector="$duskSelector . '_delete' ?? ''">
         Delete
       </x-form-button>
     @endif
