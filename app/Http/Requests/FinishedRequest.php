@@ -14,14 +14,13 @@ class FinishedRequest extends FormRequest
     public function rules()
     {
         return [
-            'finished' => 'required|in:on,off',
+            'finished' => 'in:on,off',
         ];
     }
 
     public function messages()
     {
         return [
-            'required' => ':attribute is mandatory!',
             'in' => ':attribute must be true or false!'
         ];
     }
