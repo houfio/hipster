@@ -42,7 +42,7 @@
               Deadlines
             </x-navigation-item>
           @endcan
-          @can('can-view-deadlines')
+          @can('viewAny', \App\Tag::class)
             <x-navigation-item path="tags">
               Tags
             </x-navigation-item>

@@ -37,26 +37,23 @@
   </div>
   <ul class="list-group">
     @foreach($exams as $exam)
-      {{ $exam->subject_name }}
-      <li class="list-group-item">
-        {{ $exam->name }} | Due on: {{ $exam->due_on }}
+      <x-list-item
+        :id="$exam->id"
+        :edit="action('DeadlineController@edit', ['deadline' => $exam->id])"
+      >
+        {{ $exam->subject_name }}
         <form method="post" id="finished-form" action="{{ action('DeadlineController@check', ['deadline' => $exam->id]) }}">
           @csrf
           @method('put')
-          <div class="form-group col-6">
-            <label for="finished">Finished</label>
-            <input
-              onclick="document.getElementById('finished-form').submit()"
-              type="checkbox"
-              class="form-control"
-              name="finished"
-              id="finished"
-              @if($exam->finished) checked @endif
-            />
-          </div>
+          <input
+            onclick="document.getElementById('finished-form').submit()"
+            type="checkbox"
+            name="finished"
+            id="finished"
+            @if($exam->finished) checked @endif
+          />
         </form>
-        <a href="{{ action('DeadlineController@edit', ['deadline' => $exam->id]) }}" class="btn btn-light">Edit</a>
-      </li>
+      </x-list-item>
     @endforeach
   </ul>
 @endsection
