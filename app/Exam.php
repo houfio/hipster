@@ -12,7 +12,8 @@ class Exam extends Model
     protected $primaryKey = 'id';
 
     protected $casts = [
-        'grade' => 'float'
+        'grade' => 'float',
+        'due_on' => 'datetime'
     ];
 
     public function subject()

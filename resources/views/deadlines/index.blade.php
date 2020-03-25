@@ -11,15 +11,16 @@
     @foreach($exams as $exam)
       <li class="list-group-item">
         {{ $exam->name }} | Due on: {{ $exam->due_on }}
-        <form method="post" id="form" action="{{ action('DeadlineController@update', ['deadline' => $exam->id]) }}">
+        <form method="post" id="form" action="{{ action('DeadlineController@check', ['deadline' => $exam->id]) }}">
           @csrf
           @method('put')
           <div class="form-group col-6">
-            <label for="due_on">Finished</label>
+            <label for="finished">Finished</label>
             <input onclick="document.getElementById('form').submit()" type="checkbox" class="form-control"
                    name="finished" id="finished" @if($exam->finished) checked @endif>
           </div>
         </form>
+        <a href="{{ action('DeadlineController@edit', ['deadline' => $exam->id]) }}" class="btn btn-light">Edit</a>
       </li>
     @endforeach
   </ul>

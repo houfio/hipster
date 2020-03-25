@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Exam;
 use App\Subject;
+use App\Tag;
 use App\Teacher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -11,7 +13,7 @@ class AttachController extends Controller
 {
     public function toggle(Request $request, Teacher $teacher, Subject $subject, string $to)
     {
-        Gate::authorize('attach-detach');
+        Gate::authorize('attach-detach-teacher');
 
         if ($subject->teachers->contains($teacher)) {
             $subject->teachers()->detach($teacher);
@@ -26,5 +28,20 @@ class AttachController extends Controller
         }
 
         return redirect()->action('SubjectController@edit', ['subject' => $subject->id]);
+    }
+
+    public function toggleTag(Request $request, Exam $deadline, Tag $tag)
+    {
+        Gate::authorize('attach-detach-tag');
+
+        if ($deadline->tags->contains($tag)) {
+            $deadline->tags()->detach($tag);
+            $request->session()->flash('status', 'Tag detached!');
+        } else {
+            $deadline->tags()->save($tag);
+            $request->session()->flash('status', 'Tag attached!');
+        }
+
+        return redirect()->action('DeadlineController@edit', ['deadline' => $deadline->id]);
     }
 }

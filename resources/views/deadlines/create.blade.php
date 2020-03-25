@@ -22,7 +22,7 @@
               <div class="form-row">
                 <div class="form-group col-6">
                   <label for="due_on">Due on</label>
-                  <input value="{{ old('name') }}" type="datetime-local" class="form-control" name="due_on" id="due_on">
+                  <input value="{{ old('due_on') }}" type="datetime-local" class="form-control" name="due_on" id="due_on">
                 </div>
                 <div class="form-group col-6">
                   <label for="exam">Exam</label>

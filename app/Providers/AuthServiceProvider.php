@@ -16,8 +16,12 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Gate::define('attach-detach', function (User $user) {
+        Gate::define('attach-detach-teacher', function (User $user) {
             return $user->isAdmin();
+        });
+
+        Gate::define('attach-detach-tag', function (User $user) {
+            return $user->isManager();
         });
 
         Gate::define('can-view-deadlines', function (User $user) {
