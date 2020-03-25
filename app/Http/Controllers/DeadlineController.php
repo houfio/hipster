@@ -88,7 +88,7 @@ class DeadlineController extends Controller
         $deadline->finished = $data['finished'] === 'on';
         $deadline->save();
 
-        $request->session()->flash('status', "$deadline->name has been finished!");
+        $request->session()->flash('status', "$deadline->name has been checked!");
         return redirect()->action('DeadlineController@index');
     }
 }

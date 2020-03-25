@@ -74,7 +74,7 @@
         <form
           id="toggle-coordinator-{{ $teacher->id }}"
           method="post"
-          action="{{ action('AttachController@toggle', ['teacher' => $teacher->id, 'subject' => $subject->id, 'to' => 'subject']) }}"
+          action="{{ action('AttachController@toggleCoordinator', ['subject' => $subject->id, 'teacher' => $teacher->id]) }}"
           class="d-none"
         >
           @csrf

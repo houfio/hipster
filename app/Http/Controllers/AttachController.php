@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exam;
 use App\Subject;
+use App\SubjectTeacher;
 use App\Tag;
 use App\Teacher;
 use Illuminate\Http\Request;
@@ -43,5 +44,20 @@ class AttachController extends Controller
         }
 
         return redirect()->action('DeadlineController@edit', ['deadline' => $deadline->id]);
+    }
+
+    public function toggleCoordinator(Request $request, Subject $subject, Teacher $teacher)
+    {
+        Gate::authorize('attach-detach-teacher');
+        $subjectTeachers = SubjectTeacher::where('subject_id', '=', $subject->id)->get();
+
+        foreach ($subjectTeachers as $subjectTeacher) {
+            $subjectTeacher->is_coordinator = $subjectTeacher->teacher_id === $teacher->id;
+            $subjectTeacher->save();
+        }
+
+        $request->session()->flash('status', "$teacher->first_name is now the coordinator of $subject->name!");
+
+        return redirect()->action('SubjectController@edit', ['subject' => $subject->id]);
     }
 }

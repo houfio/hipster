@@ -12,6 +12,7 @@ Route::post('logout', 'Auth\LoginController@logout');
 Route::get('/assessments/{file}', 'FileController@downloadAssessment');
 Route::post('/attach/{teacher}/{subject}/{to}', 'AttachController@toggle');
 Route::post('/attach/{deadline}/{tag}', 'AttachController@toggleTag');
+Route::post('/coordinator/{subject}/{teacher}', 'AttachController@toggleCoordinator');
 
 Route::put('/deadline/check/{deadline}', 'DeadlineController@check');
 

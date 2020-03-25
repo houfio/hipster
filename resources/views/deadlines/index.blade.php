@@ -31,12 +31,12 @@
       {{ $exam->subject->name }}
       <li class="list-group-item">
         {{ $exam->name }} | Due on: {{ $exam->due_on }}
-        <form method="post" id="form" action="{{ action('DeadlineController@check', ['deadline' => $exam->id]) }}">
+        <form method="post" id="finished-form" action="{{ action('DeadlineController@check', ['deadline' => $exam->id]) }}">
           @csrf
           @method('put')
           <div class="form-group col-6">
             <label for="finished">Finished</label>
-            <input onclick="document.getElementById('form').submit()" type="checkbox" class="form-control"
+            <input onclick="document.getElementById('finished-form').submit()" type="checkbox" class="form-control"
                    name="finished" id="finished" @if($exam->finished) checked @endif>
           </div>
         </form>
