@@ -27,7 +27,7 @@ class DeadlineController extends Controller
                 $join->on('subject_teachers.is_coordinator', '=', DB::raw(1));
             })
             ->leftJoin('teachers', 'subject_teachers.teacher_id', '=', 'teachers.id')
-            ->select('exams.*', 'subjects.name as subject_name', 'teachers.first_name as teacher_name')
+            ->select('exams.*', 'subjects.name as subject_name', DB::raw("concat('teacher.first_name', '', 'teacher.last_name') as teacher_name"))
             ->where('due_on', '!=', null)
             ->orderBy($sort, $order)
             ->paginate(10);
