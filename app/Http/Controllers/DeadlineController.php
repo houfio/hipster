@@ -15,13 +15,22 @@ class DeadlineController extends Controller
     {
         Gate::authorize('can-view-deadlines');
 
-        $page = (int)$request->query('page');
-        $pages = Exam::where('due_on', '!=', null)->count() / 10;
-        $exams = Exam::where('due_on', '!=', null)->orderBy('finished', 'asc')->orderBy('due_on', 'asc')->offset($page * 10)->limit(10)->get();
+        $orderBy = (string)$request->query('sort');
+        $sort = (string)$request->query('order');
+
+        $exams = Exam::join('subjects', 'exams.subject_id', '=', 'subjects.id')
+            ->join('subject_teachers', 'subjects.id', '=', 'subject_teachers.subject_id')
+            ->join('teachers', 'subject_teachers.teacher_id', '=', 'teachers.id')
+            ->where('due_on', '!=', null);
+
+        if ($orderBy !== '') {
+            $exams->orderBy($orderBy, $sort === '' ? 'asc' : $sort);
+        }
 
         return view('deadlines.index', [
-            'exams' => $exams,
-            'pages' => $pages
+            'exams' => $exams->paginate(10),
+            'sort' => $sort,
+            'order' => $orderBy
         ]);
     }
 
