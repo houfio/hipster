@@ -8,8 +8,6 @@ use App\Http\Requests\SearchRequest;
 use App\Subject;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 class ExamController extends Controller
 {
@@ -49,7 +47,7 @@ class ExamController extends Controller
         $exam->name = $data['name'];
         $exam->is_assessment = isset($data['is_assessment']) && $data['is_assessment'] === 'on';
 
-        if (isset($data['assessment_file'])) {
+        if (isset($data['assessment_file']) && $exam->is_assessment) {
             $exam->file = $request->file('assessment_file')->store('assessments');
         }
 
@@ -62,13 +60,35 @@ class ExamController extends Controller
 
     public function edit(Exam $exam)
     {
+        $subjects = Subject::all();
+
         return view('exam.edit', [
-            'exam' => $exam
+            'exam' => $exam,
+            'subjects' => $subjects
         ]);
     }
 
-    public function update(Request $request, Exam $exam)
+    public function update(ExamRequest $request, Exam $exam)
     {
+        $data = $request->validated();
+
+        $exam->description = $data['description'];
+        $exam->name = $data['name'];
+        $exam->is_assessment = isset($data['is_assessment']) && $data['is_assessment'] === 'on';
+        $exam->grade = isset($data['grade']) ? $data['grade'] : null;
+
+        if (isset($data['assessment_file']) && $exam->is_assessment) {
+            $exam->file = $request->file('assessment_file')->store('assessments');
+        } else if (!$exam->is_assessment) {
+            $exam->file = null;
+        }
+
+        $exam->subject()->dissociate();
+        $exam->subject()->associate(Subject::find($data['subject']));
+        $exam->save();
+
+        $request->session()->flash('status', 'Exam updated');
+        return redirect()->action('ExamController@index');
     }
 
     /**

@@ -18,7 +18,8 @@ class ExamRequest extends FormRequest
             'name' => 'required|max:80',
             'subject' => 'required|numeric',
             'is_assessment' => 'in:on,off',
-            'assessment_file' => 'nullable|file|mimes:zip'
+            'assessment_file' => 'nullable|file|mimes:zip',
+            'grade' => 'nullable|numeric|min:1|max:10'
         ];
     }
 
@@ -27,6 +28,7 @@ class ExamRequest extends FormRequest
         return [
             'required' => ':attribute is mandatory!',
             'max' => ':attribute cannot be longer than :max characters!',
+            'min' => ':attribute must be at least :min long!',
             'numeric' => ':attribute must be a number!',
             'file' => ':attribute must be a file!',
             'mimes' => ':attribute must be a zip file!',
@@ -41,7 +43,8 @@ class ExamRequest extends FormRequest
             'name' => 'Name',
             'assessment_file' => 'File',
             'is_assessment' => 'Assessment',
-            'subject' => 'Subject'
+            'subject' => 'Subject',
+            'grade' => 'Grade'
         ];
     }
 }
