@@ -3,7 +3,7 @@
 @section('title', 'Login')
 
 @section('actions')
-  <x-form-button id="login-form" type="primary">Login</x-form-button>
+  <x-form-button duskSelector="do_login" id="login-form" type="primary">Login</x-form-button>
 @endsection
 
 @section('content')
