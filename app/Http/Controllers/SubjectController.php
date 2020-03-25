@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\SearchRequest;
 use App\Http\Requests\SubjectRequest;
+use App\Period;
 use App\Subject;
 use App\Teacher;
 use Exception;
@@ -30,7 +31,9 @@ class SubjectController extends Controller
 
     public function create()
     {
-        return view('subject.create');
+        return view('subject.create', [
+            'periods' => Period::all()
+        ]);
     }
 
     public function store(SubjectRequest $request)
@@ -39,10 +42,11 @@ class SubjectController extends Controller
 
         $subject = new Subject();
 
-        $subject->description = $data['description']->trim();
+        $subject->description = $data['description'];
         $subject->name = $data['name'];
         $subject->credits = $data['credits'];
 
+        $subject->period()->associate(Period::find($data['period']));
         $subject->save();
         $request->session()->flash('status', "Subject $subject->name was created");
 
@@ -57,7 +61,8 @@ class SubjectController extends Controller
         return view('subject.edit', [
             'subject' => $subject,
             'teachers' => $teachers,
-            'attached' => $attached
+            'attached' => $attached,
+            'periods' => Period::all()
         ]);
     }
 
@@ -69,6 +74,8 @@ class SubjectController extends Controller
         $subject->name = $data['name'];
         $subject->credits = $data['credits'];
 
+        $subject->period()->dissociate();
+        $subject->period()->associate(Period::find($data['period']));
         $subject->save();
         $request->session()->flash('status', "Subject $subject->name was updated");
 

@@ -11,13 +11,21 @@
   <form method="post" id="create-form" action="{{ action('SubjectController@store') }}">
     @csrf
     <div class="form-row">
-      <div class="form-group col-md-6">
+      <div class="form-group col-md-4">
         <label for="name">Name</label>
         <input value="{{ old('name') }}" type="text" class="form-control" name="name" id="name"/>
       </div>
-      <div class="form-group col-md-6">
+      <div class="form-group col-md-4">
         <label for="credits">Credits</label>
         <input value="{{ old('credits') }}" type="number" class="form-control" name="credits" id="credits"/>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="period">Period</label>
+        <select class="form-control" name="period" id="period">
+          @foreach($periods as $period)
+            <option value="{{ $period->id }}">Period {{ $period->id }}</option>
+          @endforeach
+        </select>
       </div>
     </div>
     <div class="form-row">

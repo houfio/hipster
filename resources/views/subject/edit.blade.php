@@ -12,13 +12,21 @@
     @csrf
     @method('put')
     <div class="form-row">
-      <div class="form-group col-md-6">
+      <div class="form-group col-md-4">
         <label for="name">Name</label>
         <input value="{{ $subject->name }}" type="text" class="form-control" name="name" id="name">
       </div>
-      <div class="form-group col-md-6">
+      <div class="form-group col-md-4">
         <label for="credits">Credits</label>
         <input value="{{ $subject->credits }}" type="text" class="form-control" name="credits" id="credits">
+      </div>
+      <div class="form-group col-md-4">
+        <label for="period">Period</label>
+        <select class="form-control" name="period" id="period">
+          @foreach($periods as $period)
+            <option value="{{ $period->id }}" @if($period->id === $subject->period_id) selected @endif>Period {{ $period->id }}</option>
+          @endforeach
+        </select>
       </div>
     </div>
     <div class="form-row">

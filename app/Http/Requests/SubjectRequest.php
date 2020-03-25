@@ -21,7 +21,8 @@ class SubjectRequest extends FormRequest
         return [
             'description' => 'required|max:255',
             'credits' => 'required|numeric|max:11',
-            'name' => "required|unique:subjects,name,{$this->getSubjectId()}|max:45"
+            'name' => "required|unique:subjects,name,{$this->getSubjectId()}|max:45",
+            'period' => 'required|numeric|exists:periods,id'
         ];
     }
 
@@ -31,7 +32,8 @@ class SubjectRequest extends FormRequest
             'required' => ':attribute is mandatory!',
             'max' => ':attribute cannot be longer than :max characters!',
             'unique' => ':attribute already exists',
-            'numeric' => ':attribute must be a number'
+            'numeric' => ':attribute must be a number!',
+            'exists' => ':attribute does not exist!'
         ];
     }
 
@@ -40,7 +42,8 @@ class SubjectRequest extends FormRequest
         return [
             'description' => 'Description',
             'credits' => 'Credits',
-            'name' => 'Name'
+            'name' => 'Name',
+            'period' => 'Period'
         ];
     }
 }

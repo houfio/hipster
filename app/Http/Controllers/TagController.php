@@ -9,6 +9,11 @@ use Exception;
 
 class TagController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Tag::class, 'tag');
+    }
+
     public function index()
     {
         $tags = Tag::paginate(10);
