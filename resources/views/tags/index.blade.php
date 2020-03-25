@@ -18,7 +18,6 @@
     @foreach($tags as $tag)
       <x-list-item
           :id="$tag->id"
-          :edit="action('TeacherController@edit', ['teacher' => $tag->id])"
           :delete="action('TagController@destroy', ['tag' => $tag->id])"
       >
         {{ $tag->name }}

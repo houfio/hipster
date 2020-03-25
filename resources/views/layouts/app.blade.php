@@ -42,6 +42,11 @@
               Deadlines
             </x-navigation-item>
           @endcan
+          @can('can-view-deadlines')
+            <x-navigation-item path="tags">
+              Tags
+            </x-navigation-item>
+          @endcan
         </ul>
         <ul class="navbar-nav">
           @auth
