@@ -35,7 +35,7 @@
                   </select>
                 </div>
               </div>
-              <input type="submit" class="btn btn-secondary" value="Create">
+              <input dusk="create" type="submit" class="btn btn-secondary" value="Create">
               <a href="{{ action('DeadlineController@index') }}" class="btn btn-secondary">Cancel</a>
             </form>
           </div>

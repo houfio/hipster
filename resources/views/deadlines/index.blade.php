@@ -3,7 +3,7 @@
 @section('title', 'Deadlines')
 
 @section('actions')
-  <a href="{{ action('DeadlineController@create') }}" class="btn btn-primary">Create</a>
+  <a dusk="create_deadline" href="{{ action('DeadlineController@create') }}" class="btn btn-primary">Create</a>
 @endsection
 
 @section('content')
