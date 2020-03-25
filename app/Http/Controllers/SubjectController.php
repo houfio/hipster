@@ -57,11 +57,17 @@ class SubjectController extends Controller
     {
         $teachers = Teacher::paginate(10);
         $attached = $subject->teachers()->get();
+        $coordinators = array_reduce($attached->all(), function ($previous, $current) {
+            $previous[$current->id] = $current->pivot->is_coordinator;
+
+            return $previous;
+        }, []);
 
         return view('subject.edit', [
             'subject' => $subject,
             'teachers' => $teachers,
             'attached' => $attached,
+            'coordinators' => $coordinators,
             'periods' => Period::all()
         ]);
     }
