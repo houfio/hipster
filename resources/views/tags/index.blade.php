@@ -7,7 +7,7 @@
     @csrf
     <div class="input-group">
       <input value="{{ old('name') }}" type="text" class="form-control" name="name" id="name" aria-label="Name">
-      <button class="btn btn-primary input-group-append" type="submit">
+      <button dusk="create_tag" class="btn btn-primary input-group-append" type="submit">
         Create
       </button>
     </div>

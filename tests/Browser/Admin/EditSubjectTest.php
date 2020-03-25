@@ -22,11 +22,9 @@ class EditSubjectTest extends DuskTestCase
             'role_id' => 2
         ]);
 
-        $name = '';
+        $name = Str::random(4) . rand(1, 300);
 
-        $this->browse(function (Browser $browser) use ($user, &$name) {
-            $name = Str::random(4) . rand(1, 300);
-
+        $this->browse(function (Browser $browser) use ($user, $name) {
             $browser->loginAs($user)
                 ->assertAuthenticatedAs($user)
                 ->visit(new SubjectsPage())
