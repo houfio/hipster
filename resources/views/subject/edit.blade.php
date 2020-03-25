@@ -24,7 +24,9 @@
         <label for="period">Period</label>
         <select class="form-control" name="period" id="period">
           @foreach($periods as $period)
-            <option value="{{ $period->id }}" @if($period->id === $subject->period_id) selected @endif>Period {{ $period->id }}</option>
+            <option value="{{ $period->id }}" @if($period->id === $subject->period_id) selected @endif>
+              Period {{ $period->id }}
+            </option>
           @endforeach
         </select>
       </div>
@@ -69,10 +71,10 @@
           @csrf
         </form>
         <form
-            id="toggle-coordinator-{{ $teacher->id }}"
-            method="post"
-            action="{{ action('AttachController@toggle', ['teacher' => $teacher->id, 'subject' => $subject->id, 'to' => 'subject']) }}"
-            class="d-none"
+          id="toggle-coordinator-{{ $teacher->id }}"
+          method="post"
+          action="{{ action('AttachController@toggle', ['teacher' => $teacher->id, 'subject' => $subject->id, 'to' => 'subject']) }}"
+          class="d-none"
         >
           @csrf
         </form>
