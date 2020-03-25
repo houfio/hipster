@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Exam;
+use App\Http\Requests\ExamRequest;
 use App\Http\Requests\SearchRequest;
 use App\Subject;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class ExamController extends Controller
 {
@@ -36,8 +39,25 @@ class ExamController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(ExamRequest $request)
     {
+        $data = $request->validated();
+
+        $exam = new Exam();
+
+        $exam->description = $data['description'];
+        $exam->name = $data['name'];
+        $exam->is_assessment = isset($data['is_assessment']) && $data['is_assessment'] === 'on';
+
+        if (isset($data['assessment_file'])) {
+            $exam->file = $request->file('assessment_file')->store('assessments');
+        }
+
+        $exam->subject()->associate(Subject::find($data['subject']));
+        $exam->save();
+
+        $request->session()->flash('status', 'Exam created');
+        return redirect()->action('ExamController@index');
     }
 
     public function edit(Exam $exam)
@@ -58,7 +78,6 @@ class ExamController extends Controller
     {
         $exam->delete();
         $request->session()->flash('status', "Exam $exam->name was deleted");
-
         return redirect()->action('ExamController@index');
     }
 }

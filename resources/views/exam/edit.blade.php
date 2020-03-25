@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Edit exm')
+@section('title', 'Edit exam')
 
 @section('actions')
   <a href="{{ action('ExamController@index') }}" class="btn btn-light">Cancel</a>
@@ -19,16 +19,6 @@
       <div class="form-group col-md-6">
         <label for="grade">Grade</label>
         <input value="{{ $exam->grade }}" type="text" class="form-control" name="grade" id="grade">
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="form-group col-md-6">
-        <label for="start_date">Start date</label>
-        <input value="{{ $exam->start_date }}" type="datetime-local" class="form-control" name="start_date" id="start_date">
-      </div>
-      <div class="form-group col-md-6">
-        <label for="end_date">End date</label>
-        <input value="{{ $exam->end_date }}" type="datetime-local" class="form-control" name="end_date" id="end_date">
       </div>
     </div>
     <div class="form-row">
