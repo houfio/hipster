@@ -50,15 +50,16 @@
           <x-form-button :id="'toggle-form-' . $teacher->id" type="primary">
             {{ $attached->contains($teacher) ? 'Detach' : 'Attach' }}
           </x-form-button>
-          {{ isset($teacher->pivot->is_coordinator) ? 'True' : 'False' }}
-          @if(isset($teacher->pivot) && !$teacher->pivot->is_coordinator)
-            <x-form-button :id="'toggle-coordinator-' . $teacher->id" type="primary">
-              Make coordinator
-            </x-form-button>
-          @else
-            <button class="btn btn-primary" disabled>
-              Is coordinator
-            </button>
+          @if($attached->contains($teacher))
+            @if($coordinators[$teacher->id])
+              <button class="btn btn-primary" disabled>
+                Is coordinator
+              </button>
+            @else
+              <x-form-button :id="'toggle-coordinator-' . $teacher->id" type="primary">
+                Make coordinator
+              </x-form-button>
+            @endif
           @endif
         </x-slot>
         {{ $teacher->first_name }} {{ $teacher->last_name }}
