@@ -7,6 +7,7 @@ use App\Http\Requests\CreateDeadlineRequest;
 use App\Http\Requests\FinishedRequest;
 use App\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 
 class DeadlineController extends Controller
@@ -15,22 +16,25 @@ class DeadlineController extends Controller
     {
         Gate::authorize('can-view-deadlines');
 
-        $orderBy = (string)$request->query('sort');
-        $sort = (string)$request->query('order');
-
+        $sort = $request->query('sort') ?? 'due_on';
+        $order = $request->query('order') ?? 'asc';
         $exams = Exam::join('subjects', 'exams.subject_id', '=', 'subjects.id')
-            ->join('subject_teachers', 'subjects.id', '=', 'subject_teachers.subject_id')
-            ->join('teachers', 'subject_teachers.teacher_id', '=', 'teachers.id')
+            ->leftJoin('subject_teachers', function ($join) {
+                $join->on('subjects.id', '=', 'subject_teachers.subject_id');
+                $join->on('subject_teachers.is_coordinator', '=', DB::raw(1));
+            })
+            ->leftJoin('teachers', 'subject_teachers.teacher_id', '=', 'teachers.id')
+            ->select('exams.*', 'subjects.name as subject_name')
             ->where('due_on', '!=', null);
 
-        if ($orderBy !== '') {
-            $exams->orderBy($orderBy, $sort === '' ? 'asc' : $sort);
+        if ($order) {
+            $exams->orderBy($sort, $order);
         }
 
         return view('deadlines.index', [
             'exams' => $exams->paginate(10),
             'sort' => $sort,
-            'order' => $orderBy
+            'order' => $order
         ]);
     }
 
@@ -48,7 +52,6 @@ class DeadlineController extends Controller
         Gate::authorize('can-view-deadlines');
 
         $data = $request->validated();
-        /** @var Exam $exam */
         $exam = Exam::find($data['exam']);
 
         $exam->due_on = $data['due_on'];
@@ -74,9 +77,10 @@ class DeadlineController extends Controller
 
         $data = $request->validated();
         $deadline->finished = $data['finished'] === 'on';
-        $deadline->save();
 
+        $deadline->save();
         $request->session()->flash('status', "$deadline->name has been finished!");
+
         return redirect()->action('DeadlineController@index');
     }
 
@@ -85,10 +89,11 @@ class DeadlineController extends Controller
         Gate::authorize('can-view-deadlines');
 
         $data = $request->validated();
-        $deadline->finished = $data['finished'] === 'on';
-        $deadline->save();
+        $deadline->finished = isset($data['finished']);
 
-        $request->session()->flash('status', "$deadline->name has been checked!");
+        $deadline->save();
+        $request->session()->flash('status', "$deadline->name has been finished!");
+
         return redirect()->action('DeadlineController@index');
     }
 }
