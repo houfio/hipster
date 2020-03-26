@@ -8,15 +8,9 @@ use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {
-    protected $policies = [
-        // 'App\Model' => 'App\Policies\ModelPolicy',
-    ];
-
     public function boot()
     {
-        $this->registerPolicies();
-
-        Gate::define('can-download-files', function (User $user) {
+        Gate::define('download-files', function (User $user) {
             return $user->isAdmin();
         });
 
@@ -28,7 +22,7 @@ class AuthServiceProvider extends ServiceProvider
             return $user->isManager();
         });
 
-        Gate::define('can-view-deadlines', function (User $user) {
+        Gate::define('view-deadlines', function (User $user) {
             return $user->isManager();
         });
     }

@@ -8,14 +8,16 @@ use App\Http\Requests\FinishedRequest;
 use App\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Gate;
 
 class DeadlineController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:view-deadlines');
+    }
+
     public function index(Request $request)
     {
-        Gate::authorize('can-view-deadlines');
-
         $sortOptions = ['due_on' => 'Due on', 'subject_name' => 'Subject', 'teacher_name' => 'Teacher', 'is_assessment' => 'Assessment'];
         $orderOptions = ['asc' => 'Ascending', 'desc' => 'Descending'];
 
@@ -54,8 +56,6 @@ class DeadlineController extends Controller
 
     public function create()
     {
-        Gate::authorize('can-view-deadlines');
-
         return view('deadlines.create', [
             'exams' => Exam::where('due_on', '=', null)->get()
         ]);
@@ -63,8 +63,6 @@ class DeadlineController extends Controller
 
     public function store(CreateDeadlineRequest $request)
     {
-        Gate::authorize('can-view-deadlines');
-
         $data = $request->validated();
         $exam = Exam::find($data['exam']);
 
@@ -78,8 +76,6 @@ class DeadlineController extends Controller
 
     public function edit(Exam $deadline)
     {
-        Gate::authorize('can-view-deadlines');
-
         return view('deadlines.edit', [
             'exam' => $deadline,
             'tags' => Tag::paginate(10),
@@ -89,8 +85,6 @@ class DeadlineController extends Controller
 
     public function update(FinishedRequest $request, Exam $deadline)
     {
-        Gate::authorize('can-view-deadlines');
-
         $data = $request->validated();
         $deadline->finished = $data['finished'] === 'on';
 
@@ -102,8 +96,6 @@ class DeadlineController extends Controller
 
     public function check(FinishedRequest $request, Exam $deadline)
     {
-        Gate::authorize('can-view-deadlines');
-
         $data = $request->validated();
         $deadline->finished = isset($data['finished']);
 

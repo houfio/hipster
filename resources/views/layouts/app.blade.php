@@ -37,7 +37,7 @@
               Exams
             </x-navigation-item>
           @endcan
-          @can('can-view-deadlines')
+          @can('view-deadlines')
             <x-navigation-item path="deadlines">
               Deadlines
             </x-navigation-item>
