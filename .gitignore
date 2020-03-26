@@ -4,6 +4,8 @@
 /storage/*.key
 /vendor
 .idea/
+.env.dusk.local
+.env.testing
 .env
 .env.backup
 .phpunit.result.cache

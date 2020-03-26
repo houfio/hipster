@@ -29,4 +29,14 @@ class Subject extends Model
     {
         return $this->belongsTo(Period::class);
     }
+
+    public function hasSufficientGrades(): bool
+    {
+        return $this->exams()->min('grade') >= 5.5;
+    }
+
+    public function hasGrades(): bool
+    {
+        return boolval($this->exams()->min('grade'));
+    }
 }

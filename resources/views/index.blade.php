@@ -26,10 +26,10 @@
           @foreach($period['subjects'] as $subject)
             <tr>
               <th>{{ $subject->name }}</th>
-              <td>{{ $subject->exams()->min('grade') >= 5.5 ? $subject->credits : 0 }}/{{ $subject->credits }}</td>
-              @if($subject->exams()->min('grade') >= 5.5)
+              <td>{{ $subject->hasSufficientGrades() ? $subject->credits : 0 }}/{{ $subject->credits }}</td>
+              @if($subject->hasSufficientGrades())
                 <td class="text-success">Passed</td>
-              @elseif($subject->exams()->min('grade'))
+              @elseif($subject->hasGrades())
                 <td class="text-danger">Not passed</td>
               @else
                 <td>Not graded</td>

@@ -16,6 +16,10 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
+        Gate::define('can-download-files', function (User $user) {
+            return $user->isAdmin();
+        });
+
         Gate::define('attach-detach-teacher', function (User $user) {
             return $user->isAdmin();
         });

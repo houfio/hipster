@@ -78,6 +78,8 @@ class DeadlineController extends Controller
 
     public function edit(Exam $deadline)
     {
+        Gate::authorize('can-view-deadlines');
+
         return view('deadlines.edit', [
             'exam' => $deadline,
             'tags' => Tag::paginate(10),
