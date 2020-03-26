@@ -10,6 +10,12 @@ use Throwable;
 
 class UnSuccessfulLoginTest extends DuskTestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->artisan('db:seed');
+    }
+
     /**
      * @throws Throwable
      * @test

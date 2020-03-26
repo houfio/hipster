@@ -12,6 +12,12 @@ use Throwable;
 
 class RemoveTagTest extends DuskTestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->artisan('db:seed');
+    }
+
     /**
      * @throws Throwable
      * @test
