@@ -1,6 +1,10 @@
 @import "variables";
 @import "~bootstrap/scss/bootstrap";
 
+body {
+  overflow-y: scroll;
+}
+
 .w-sidebar {
   width: 15rem;
 }
