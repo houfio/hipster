@@ -17,6 +17,25 @@ class TeacherControllerTest extends TestCase
     /**
      * @test
      */
+    public function testCreateTeacherWithInvalidEmailExpectSessionErrors()
+    {
+        $teacher = factory(Teacher::class)->make();
+        $user = factory(User::class)->create(['role_id' => 2]);
+
+        $this->actingAs($user)
+            ->post('/teachers', [
+                'email' => 'invalid',
+                'first_name' => $teacher->first_name,
+                'last_name' => $teacher->last_name,
+                'abbreviation' => $teacher->abbreviation
+            ])
+            ->assertSessionHas('errors')
+            ->assertStatus(302);
+    }
+
+    /**
+     * @test
+     */
     public function testCreateTeacherExpectRedirectResponse()
     {
         $teacher = factory(Teacher::class)->make();
@@ -29,6 +48,7 @@ class TeacherControllerTest extends TestCase
                 'last_name' => $teacher->last_name,
                 'abbreviation' => $teacher->abbreviation
             ])
+            ->assertSessionHas('status', "Teacher $teacher->first_name $teacher->last_name was created")
             ->assertStatus(302);
     }
 
@@ -60,6 +80,7 @@ class TeacherControllerTest extends TestCase
 
         $this->actingAs($user)
             ->delete("/teachers/$teacher->id")
+            ->assertSessionHas('status', "Teacher $teacher->first_name $teacher->last_name was deleted")
             ->assertStatus(302);
     }
 

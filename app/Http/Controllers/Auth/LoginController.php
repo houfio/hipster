@@ -21,7 +21,7 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    private function getUser(string $email): ?User
+    public function getUser(string $email): ?User
     {
         return User::all()->first(function (User $user) use ($email) {
             return $user->email === $email;

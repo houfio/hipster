@@ -16,7 +16,7 @@ class TeacherRequest extends FormRequest
         return [
             'first_name' => 'required|max:30',
             'last_name' => 'required|max:60',
-            'email' => 'required|max:255',
+            'email' => 'email|required|max:255',
             'abbreviation' => 'required|max:4'
         ];
     }
@@ -25,7 +25,8 @@ class TeacherRequest extends FormRequest
     {
         return [
             'required' => ':attribute is mandatory!',
-            'max' => ':attribute cannot be longer than :max characters!'
+            'max' => ':attribute cannot be longer than :max characters!',
+            'email' => ':attribute is not a valid email!'
         ];
     }
 
