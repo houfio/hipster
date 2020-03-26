@@ -57,7 +57,7 @@ class DashboardController extends Controller
         foreach ($periods as $period) {
             $credits = $period->subjects()->sum('credits');
             $received = $period->subjects()->whereHas('exams', function ($query) {
-                $query->select('grade')->groupBy('grade')->havingRaw('min(grade) >= 5.5');
+                $query->select('subject_id')->selectRaw('min(grade) as min')->selectRaw('count(*) - count(grade) as count')->groupBy('subject_id')->havingRaw('min >= 5.5 and count = 0');
             })->sum('credits');
 
             $totalNeeded += $credits;
