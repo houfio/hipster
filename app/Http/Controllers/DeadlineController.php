@@ -22,7 +22,8 @@ class DeadlineController extends Controller
 
         $sort = $this->getOrFirst($request->query('sort'), $sortOptions);
         $order = $this->getOrFirst($request->query('order'), $orderOptions);
-        $exams = Exam::join('subjects', 'exams.subject_id', '=', 'subjects.id')
+        $exams = Exam::with('tags')
+            ->join('subjects', 'exams.subject_id', '=', 'subjects.id')
             ->leftJoin('subject_teachers', function ($join) {
                 $join->on('subjects.id', '=', 'subject_teachers.subject_id');
                 $join->on('subject_teachers.is_coordinator', '=', DB::raw(1));

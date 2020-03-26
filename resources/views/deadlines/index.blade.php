@@ -71,6 +71,9 @@
           @if($exam->is_assessment)
             <span class="badge badge-secondary">Assessment</span>
           @endif
+          @foreach($exam->tags as $tag)
+            <span class="badge badge-light">{{ $tag->name }}</span>
+          @endforeach
         </span>
       </x-list-item>
     @empty
