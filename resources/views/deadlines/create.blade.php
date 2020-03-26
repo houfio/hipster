@@ -12,10 +12,6 @@
     @csrf
     <div class="form-row">
       <div class="form-group col-6 mb-0">
-        <label for="due_on">Due on</label>
-        <input value="{{ old('due_on') }}" type="datetime-local" class="form-control" name="due_on" id="due_on">
-      </div>
-      <div class="form-group col-6 mb-0">
         <label for="exam">Exam</label>
         <select id="exam" name="exam" class="form-control">
           @foreach ($exams as $exam)
@@ -24,6 +20,10 @@
             </option>
           @endforeach
         </select>
+      </div>
+      <div class="form-group col-6 mb-0">
+        <label for="due_on">Due on</label>
+        <input value="{{ old('due_on') }}" type="datetime-local" class="form-control" name="due_on" id="due_on">
       </div>
     </div>
   </form>

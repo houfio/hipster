@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class Exam extends Model
 {
@@ -29,5 +30,10 @@ class Exam extends Model
     public function passed(): bool
     {
         return $this->grade >= 5.5;
+    }
+
+    public function formattedDueOn()
+    {
+        return Carbon::parse($this->due_on)->format('Y-m-d\TH:i');
     }
 }

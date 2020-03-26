@@ -4,9 +4,18 @@
 
 @section('actions')
   <a href="{{ action('DeadlineController@index') }}" class="btn btn-light">Cancel</a>
+  <x-form-button id="update-form" type="primary">Edit</x-form-button>
 @endsection
 
 @section('content')
+  <form method="post" id="update-form" action="{{ action('DeadlineController@store') }}">
+    @csrf
+    <input type="hidden" name="exam" value="{{ $exam->id }}"/>
+    <div class="form-group">
+      <label for="due_on">Due on</label>
+      <input value="{{ $exam->formattedDueOn() }}" type="datetime-local" class="form-control" name="due_on" id="due_on">
+    </div>
+  </form>
   <div class="d-flex justify-content-between">
     {{ $tags->links() }}
   </div>

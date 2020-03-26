@@ -18,5 +18,5 @@ Route::post('/coordinator/{subject}/{teacher}', 'AttachController@toggleCoordina
 Route::resource('teachers', 'TeacherController')->except(['show']);
 Route::resource('subjects', 'SubjectController')->except(['show']);
 Route::resource('exams', 'ExamController')->except(['show']);
-Route::resource('deadlines', 'DeadlineController')->except(['show']);
+Route::resource('deadlines', 'DeadlineController')->except(['show', 'destroy']);
 Route::resource('tags', 'TagController')->only(['index', 'store', 'destroy']);
