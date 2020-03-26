@@ -29,7 +29,7 @@
               @if($subject->passed())
                 <span class="badge badge-success">Passed</span>
               @elseif($subject->graded())
-                <span class="badge badge-danger">Not passed</span>
+                <span class="badge badge-danger">Failed</span>
               @endif
             </span>
             </x-list-item>
