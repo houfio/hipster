@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Gate;
 
 class AttachController extends Controller
 {
-    public function toggle(Request $request, Teacher $teacher, Subject $subject, string $to)
+    public function toggleTeacher(Request $request, Teacher $teacher, Subject $subject, string $to)
     {
         Gate::authorize('attach-detach-teacher');
 

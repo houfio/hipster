@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exam;
-use App\Http\Requests\CreateDeadlineRequest;
-use App\Http\Requests\FinishedRequest;
+use App\Http\Requests\DeadlineRequest;
 use App\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -61,7 +60,7 @@ class DeadlineController extends Controller
         ]);
     }
 
-    public function store(CreateDeadlineRequest $request)
+    public function store(DeadlineRequest $request)
     {
         $data = $request->validated();
         $exam = Exam::find($data['exam']);
@@ -83,20 +82,11 @@ class DeadlineController extends Controller
         ]);
     }
 
-    public function update(FinishedRequest $request, Exam $deadline)
+    public function update(DeadlineRequest $request, Exam $deadline)
     {
         $data = $request->validated();
-        $deadline->finished = $data['finished'] === 'on';
 
-        $deadline->save();
-        $request->session()->flash('status', "$deadline->name has been finished!");
-
-        return redirect()->action('DeadlineController@index');
-    }
-
-    public function check(FinishedRequest $request, Exam $deadline)
-    {
-        $data = $request->validated();
+        $deadline->due_on = $data['due_on'];
         $deadline->finished = isset($data['finished']);
 
         $deadline->save();

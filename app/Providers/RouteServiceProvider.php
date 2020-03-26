@@ -14,15 +14,6 @@ class RouteServiceProvider extends ServiceProvider
 
     public const HOME = '/';
 
-    public function boot()
-    {
-        parent::boot();
-
-        Route::model('teachers', Teacher::class);
-        Route::model('subjects', Subject::class);
-        Route::model('exams', Exam::class);
-    }
-
     public function map()
     {
         Route::middleware('web')
