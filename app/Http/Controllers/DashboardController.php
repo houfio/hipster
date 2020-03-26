@@ -9,7 +9,7 @@ use Closure;
 
 class DashboardController extends Controller
 {
-    public function index(?int $semester = null)
+    public function index(int $semester = 1)
     {
         $semesterArr = [
             'needed' => 0,
@@ -48,7 +48,7 @@ class DashboardController extends Controller
         ]));
     }
 
-    private function getSemesters(?int $semester = null, ?Closure $fn = null)
+    private function getSemesters(int $semester = null, ?Closure $fn = null)
     {
         $periods = Period::all();
         $totalNeeded = 0;
