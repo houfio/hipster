@@ -11,7 +11,7 @@
     {{ $teachers->links() }}
   </div>
   <ul class="list-group">
-    @foreach($teachers as $teacher)
+    @forelse($teachers as $teacher)
       <x-list-item
         :id="$teacher->id"
         :edit="action('TeacherController@edit', ['teacher' => $teacher->id])"
@@ -19,6 +19,10 @@
       >
         {{ $teacher->first_name }} {{ $teacher->last_name }}
       </x-list-item>
-    @endforeach
+    @empty
+      <div>
+        No teachers found
+      </div>
+    @endforelse
   </ul>
 @endsection

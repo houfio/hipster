@@ -14,7 +14,7 @@
     {{ $exams->appends(['search' => $search])->links() }}
   </div>
   <ul class="list-group">
-    @foreach($exams as $exam)
+    @forelse($exams as $exam)
       <x-list-item
         :id="$exam->id"
         :edit="action('ExamController@edit', ['exam' => $exam->id])"
@@ -22,6 +22,10 @@
       >
         {{ $exam->name }}
       </x-list-item>
-    @endforeach
+    @empty
+      <div>
+        No exams found
+      </div>
+    @endforelse
   </ul>
 @endsection

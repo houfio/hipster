@@ -12,7 +12,7 @@
         {{ $semester['received'] }}/{{ $semester['needed'] }}
       </div>
     </div>
-    @foreach($semester['periods'] as $period)
+    @forelse($semester['periods'] as $period)
       <div class="card p-4 border-0 mb-3">
         <h2 class="display-5 mb-4">
           Period {{ $period['period'] }}
@@ -36,6 +36,10 @@
           @endforeach
         </ul>
       </div>
-    @endforeach
+    @empty
+      <div class="card p-4 border-0 mb-3">
+        No periods found
+      </div>
+    @endforelse
   @endif
 @endsection

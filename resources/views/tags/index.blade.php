@@ -19,14 +19,18 @@
     {{ $tags->links() }}
   </div>
   <ul class="list-group">
-    @foreach($tags as $tag)
+    @forelse($tags as $tag)
       <x-list-item
-          :id="$tag->id"
-          :delete="action('TagController@destroy', ['tag' => $tag->id])"
-          :duskSelector="'tag_' . $tag->name"
+        :id="$tag->id"
+        :delete="action('TagController@destroy', ['tag' => $tag->id])"
+        :duskSelector="'tag_' . $tag->name"
       >
         {{ $tag->name }}
       </x-list-item>
-    @endforeach
+    @empty
+      <div>
+        No tags found
+      </div>
+    @endforelse
   </ul>
 @endsection

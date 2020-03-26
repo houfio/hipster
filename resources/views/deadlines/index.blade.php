@@ -36,7 +36,7 @@
     {{ $exams->appends(['sort' => $sort, 'order' => $order])->links() }}
   </div>
   <ul class="list-group">
-    @foreach($exams as $exam)
+    @forelse($exams as $exam)
       <x-list-item
         :id="$exam->id"
         :edit="action('DeadlineController@edit', ['deadline' => $exam->id])"
@@ -71,6 +71,10 @@
           @endif
         </span>
       </x-list-item>
-    @endforeach
+    @empty
+      <div>
+        No deadlines found
+      </div>
+    @endforelse
   </ul>
 @endsection

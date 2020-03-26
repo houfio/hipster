@@ -14,7 +14,7 @@
     {{ $subjects->appends(['search' => $search])->links() }}
   </div>
   <ul class="list-group">
-    @foreach($subjects as $subject)
+    @forelse($subjects as $subject)
       <x-list-item
         :id="$subject->id"
         :edit="action('SubjectController@edit', ['subject' => $subject->id])"
@@ -23,6 +23,10 @@
       >
         {{ $subject->name }}
       </x-list-item>
-    @endforeach
+    @empty
+      <div>
+        No subjects found
+      </div>
+    @endforelse
   </ul>
 @endsection
