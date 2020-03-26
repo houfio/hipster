@@ -41,7 +41,8 @@ class DeadlineController extends Controller
         ]);
     }
 
-    protected function getOrFirst(?string $given, array $options): string {
+    private function getOrFirst(?string $given, array $options): string
+    {
         $arr = array_keys($options);
 
         if ($given && in_array($given, $arr)) {
