@@ -20,7 +20,7 @@
               href="{{ action('DashboardController@index', ['semester' => $s]) }}"
               class="btn btn-light @if($current === $s) active @endif"
             >
-              Semester {{ $s }} (Y{{ ceil($s / 2) }})
+              Semester {{ $s }} <span class="badge badge-light">Y{{ ceil($s / 2) }}</span>
             </a>
           @endforeach
         </div>
