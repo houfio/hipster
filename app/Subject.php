@@ -30,13 +30,18 @@ class Subject extends Model
         return $this->belongsTo(Period::class);
     }
 
-    public function hasSufficientGrades(): bool
+    public function graded(): bool
     {
-        return $this->exams()->min('grade') >= 5.5;
+        return $this->exams->count() > 0 && $this->exams->where('grade', '==', null)->count() === 0;
     }
 
-    public function hasGrades(): bool
+    public function passed(): bool
     {
-        return boolval($this->exams()->min('grade'));
+        if (!$this->graded())
+        {
+            return false;
+        }
+
+        return $this->exams()->min('grade') >= 5.5;
     }
 }

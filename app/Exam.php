@@ -25,4 +25,9 @@ class Exam extends Model
     {
         return $this->belongsToMany(Tag::class, 'exam_tags');
     }
+
+    public function passed(): bool
+    {
+        return $this->grade >= 5.5;
+    }
 }
