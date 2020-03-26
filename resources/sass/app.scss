@@ -5,6 +5,21 @@ body {
   overflow-y: scroll;
 }
 
+.checkbox-group-item {
+  padding: .45rem .75rem .45rem 2.25rem;
+  background-color: $light;
+
+  &:first-child {
+    border-top-left-radius: $btn-border-radius;
+    border-bottom-left-radius: $btn-border-radius;
+  }
+
+  &:last-child {
+    border-top-right-radius: $btn-border-radius;
+    border-bottom-right-radius: $btn-border-radius;
+  }
+}
+
 .w-sidebar {
   width: 15rem;
 }

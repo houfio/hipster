@@ -41,18 +41,35 @@
         :id="$exam->id"
         :edit="action('DeadlineController@edit', ['deadline' => $exam->id])"
       >
-        {{ $exam->subject_name }}
-        <form method="post" id="finished-form" action="{{ action('DeadlineController@check', ['deadline' => $exam->id]) }}">
-          @csrf
-          @method('put')
-          <input
-            onclick="document.getElementById('finished-form').submit()"
-            type="checkbox"
-            name="finished"
-            id="finished"
-            @if($exam->finished) checked @endif
-          />
-        </form>
+        <x-slot name="extra">
+          <form
+            method="post"
+            id="finished-form-{{ $exam->id }}"
+            action="{{ action('DeadlineController@check', ['deadline' => $exam->id]) }}"
+          >
+            <div class="custom-control custom-checkbox checkbox-group-item">
+              <input
+                type="checkbox"
+                name="finished"
+                id="finished-{{ $exam->id }}"
+                class="custom-control-input"
+                onclick="document.getElementById('finished-form-{{ $exam->id }}').submit()"
+                @if($exam->finished) checked @endif
+              />
+              <label class="custom-control-label" for="finished-{{ $exam->id }}">
+                Done
+              </label>
+            </div>
+            @csrf
+            @method('put')
+          </form>
+        </x-slot>
+        <span>
+          {{ $exam->due_on }} | {{ $exam->subject_name }}
+          @if($exam->is_assessment)
+            <span class="badge badge-secondary">Assessment</span>
+          @endif
+        </span>
       </x-list-item>
     @endforeach
   </ul>
