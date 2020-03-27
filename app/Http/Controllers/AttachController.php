@@ -49,10 +49,11 @@ class AttachController extends Controller
     public function toggleCoordinator(Request $request, Subject $subject, Teacher $teacher)
     {
         Gate::authorize('attach-detach-teacher');
+
         $subjectTeachers = SubjectTeacher::where('subject_id', '=', $subject->id)->get();
 
         foreach ($subjectTeachers as $subjectTeacher) {
-            $subjectTeacher->is_coordinator = $subjectTeacher->teacher_id === $teacher->id;
+            $subjectTeacher->is_coordinator = $subjectTeacher->teacher_id === $teacher->id && !$subjectTeacher->is_coordinator;
             $subjectTeacher->save();
         }
 

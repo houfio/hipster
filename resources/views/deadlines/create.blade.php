@@ -17,7 +17,7 @@
           <option disabled selected>Select exam...</option>
           @foreach ($exams as $exam)
             <option value="{{ $exam->id }}" @if($exam->id === old('exam')) selected @endif>
-              Subject: {{ $exam->subject->name }} Exam: {{ $exam->name }}
+              {{ $exam->subject->name }} - {{ $exam->name }}
             </option>
           @endforeach
         </select>

@@ -42,15 +42,17 @@
       </div>
     </div>
     <div class="form-row">
-      <div class="custom-file mx-1 mb-3" id="file_wrapper" style="display: {{ $exam->is_assessment ? 'block' : 'none' }}">
-        <input type="file" class="custom-file-input" id="assessment_file" name="assessment_file"/>
-        <label class="custom-file-label" for="assessment_file">File</label>
-      </div>
-      @if($exam->file)
-        <div class="custom-file mx-1 mb-3">
-          <a href="/{{ $exam->file }}" download>Download file</a>
+      <div class="input-group mx-1 mb-3" id="file_wrapper" style="display: {{ $exam->is_assessment ? 'block' : 'none' }}">
+        <div class="custom-file">
+          <input type="file" class="custom-file-input" id="assessment_file" name="assessment_file"/>
+          <label class="custom-file-label" for="assessment_file">File</label>
         </div>
-      @endif
+        @if($exam->file)
+          <div class="input-group-append">
+            <a class="btn btn-primary" href="/{{ $exam->file }}" download>Download file</a>
+          </div>
+        @endif
+      </div>
       <div class="custom-control custom-checkbox mx-1">
         <input
           type="checkbox"

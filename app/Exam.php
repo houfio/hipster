@@ -32,8 +32,13 @@ class Exam extends Model
         return $this->grade >= 5.5;
     }
 
-    public function formattedDueOn()
+    public function formattedDueOn(): string
     {
         return Carbon::parse($this->due_on)->format('Y-m-d\TH:i');
+    }
+
+    public function isOverdue(): bool
+    {
+        return !$this->finished && $this->due_on->isPast();
     }
 }

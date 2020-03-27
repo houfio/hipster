@@ -20,7 +20,7 @@
         :edit="action('ExamController@edit', ['exam' => $exam->id])"
         :delete="action('ExamController@destroy', ['exam' => $exam->id])"
       >
-        {{ $exam->name }}
+        {{ $exam->subject->name }} | {{ $exam->name }}
       </x-list-item>
     @empty
       <div>

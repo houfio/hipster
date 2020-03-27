@@ -46,6 +46,7 @@ class ExamController extends Controller
         $exam->description = $data['description'];
         $exam->name = $data['name'];
         $exam->is_assessment = isset($data['is_assessment']) && $data['is_assessment'] === 'on';
+        $exam->grade = isset($data['grade']) ? $data['grade'] : null;
 
         if (isset($data['assessment_file']) && $exam->is_assessment) {
             $exam->file = $request->file('assessment_file')->store('assessments');
