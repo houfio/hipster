@@ -31,12 +31,18 @@
       </div>
     </div>
     <div class="form-row">
-      <div class="custom-file mx-1 mb-3">
+      <div class="custom-file mx-1 mb-3" id="file_wrapper" style="display: none">
         <input type="file" class="custom-file-input" id="assessment_file" name="assessment_file"/>
         <label class="custom-file-label" for="assessment_file">File</label>
       </div>
       <div class="custom-control custom-checkbox mx-1">
-        <input type="checkbox" class="custom-control-input" id="is_assessment" name="is_assessment"/>
+        <input
+          type="checkbox"
+          class="custom-control-input"
+          id="is_assessment"
+          name="is_assessment"
+          onchange="document.getElementById('file_wrapper').style.display = this.checked ? 'block' : 'none'"
+        />
         <label class="custom-control-label" for="is_assessment">Assessment</label>
       </div>
     </div>
