@@ -8,8 +8,9 @@
 @endsection
 
 @section('content')
-  <form method="post" id="update-form" action="{{ action('DeadlineController@store') }}">
+  <form method="post" id="update-form" action="{{ action('DeadlineController@update', ['deadline' => $exam->id]) }}">
     @csrf
+    @method('put')
     <input type="hidden" name="exam" value="{{ $exam->id }}"/>
     <div class="form-group">
       <label for="due_on">Due on</label>
