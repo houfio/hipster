@@ -4,7 +4,7 @@
 
 @section('actions')
   <a href="{{ action('DeadlineController@index') }}" class="btn btn-light">Cancel</a>
-  <x-form-button id="create-form" type="primary">Create</x-form-button>
+  <x-form-button duskSelector="create" id="create-form" type="primary">Create</x-form-button>
 @endsection
 
 @section('content')
