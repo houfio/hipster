@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\LoginController;
 use App\User;
 use Tests\TestCase;
 
