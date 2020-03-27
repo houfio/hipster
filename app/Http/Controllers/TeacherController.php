@@ -53,11 +53,17 @@ class TeacherController extends Controller
         $search = isset($data['search']) ? $data['search'] : '';
         $subjects = Subject::where('name', 'LIKE', "%$search%")->paginate(10);
         $attached = $teacher->subjects()->get();
+        $coordinators = array_reduce($attached->all(), function ($previous, $current) {
+            $previous[$current->id] = $current->pivot->is_coordinator;
+
+            return $previous;
+        }, []);
 
         return view('teacher.edit', [
             'teacher' => $teacher,
             'subjects' => $subjects,
             'attached' => $attached,
+            'coordinators' => $coordinators,
             'search' => $search
         ]);
     }

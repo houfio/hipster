@@ -66,7 +66,12 @@
             {{ $attached->contains($subject) ? 'Detach' : 'Attach' }}
           </x-form-button>
         </x-slot>
-        {{ $subject->name }}
+        <span>
+          {{ $subject->name }}
+          @if($attached->contains($subject) && $coordinators[$subject->id])
+            <span class="badge badge-secondary">Coordinator</span>
+          @endif
+        </span>
         <form
           id="toggle-form-{{ $subject->id }}"
           method="post"
