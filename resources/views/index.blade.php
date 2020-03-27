@@ -18,7 +18,7 @@
           Period {{ $period['period'] }}
         </h2>
         <ul class="list-group">
-          @foreach($period['subjects'] as $subject)
+          @forelse($period['subjects'] as $subject)
             <x-list-item
               :id="$subject->id"
               :edit="action('DashboardController@grades', ['semester' => $current, 'subject' => $subject->id])"
@@ -33,7 +33,11 @@
               @endif
             </span>
             </x-list-item>
-          @endforeach
+          @empty
+            <div>
+              No subjects found
+            </div>
+          @endforelse
         </ul>
       </div>
     @empty

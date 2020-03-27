@@ -20,7 +20,7 @@
         <label for="credits">Credits</label>
         <input value="{{ $subject->credits }}" type="text" class="form-control" name="credits" id="credits">
       </div>
-      <div class="form-group col-md-4">
+      <div class="form-group col-4">
         <label for="period">Period</label>
         <select class="form-control" name="period" id="period">
           @foreach($periods as $period)
@@ -46,35 +46,38 @@
     @foreach($teachers as $teacher)
       <x-list-item :id="$teacher->id">
         <x-slot name="extra">
+          @if($attached->contains($teacher))
+            <form
+              method="post"
+              id="toggle-coordinator-{{ $teacher->id }}"
+              action="{{ action('AttachController@toggleCoordinator', ['subject' => $subject->id, 'teacher' => $teacher->id]) }}"
+            >
+              <div class="custom-control custom-checkbox checkbox-group-item">
+                <input
+                  type="checkbox"
+                  name="finished"
+                  id="toggle-{{ $teacher->id }}"
+                  class="custom-control-input"
+                  onclick="document.getElementById('toggle-coordinator-{{ $teacher->id }}').submit()"
+                  @if($coordinators[$teacher->id]) checked @endif
+                />
+                <label class="custom-control-label" for="toggle-{{ $teacher->id }}">
+                  Coordinator
+                </label>
+              </div>
+              @csrf
+            </form>
+          @endif
           <a href="{{ action('TeacherController@edit', ['teacher' => $teacher->id]) }}" class="btn btn-light">Edit</a>
           <x-form-button :id="'toggle-form-' . $teacher->id" type="primary">
             {{ $attached->contains($teacher) ? 'Detach' : 'Attach' }}
           </x-form-button>
-          @if($attached->contains($teacher))
-            @if($coordinators[$teacher->id])
-              <button class="btn btn-primary" disabled>
-                Is coordinator
-              </button>
-            @else
-              <x-form-button :id="'toggle-coordinator-' . $teacher->id" type="primary">
-                Make coordinator
-              </x-form-button>
-            @endif
-          @endif
         </x-slot>
         {{ $teacher->first_name }} {{ $teacher->last_name }}
         <form
           id="toggle-form-{{ $teacher->id }}"
           method="post"
           action="{{ action('AttachController@toggleTeacher', ['teacher' => $teacher->id, 'subject' => $subject->id, 'to' => 'subject']) }}"
-          class="d-none"
-        >
-          @csrf
-        </form>
-        <form
-          id="toggle-coordinator-{{ $teacher->id }}"
-          method="post"
-          action="{{ action('AttachController@toggleCoordinator', ['subject' => $subject->id, 'teacher' => $teacher->id]) }}"
           class="d-none"
         >
           @csrf

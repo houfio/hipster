@@ -56,7 +56,7 @@
             >
               Logout
             </x-navigation-item>
-            <form id="logout-form" action="{{ action('Auth\LoginController@logout') }}" method="post">
+            <form id="logout-form" action="{{ action('LoginController@logout') }}" method="post">
               @csrf
             </form>
           @endauth

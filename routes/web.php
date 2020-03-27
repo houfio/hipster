@@ -6,9 +6,9 @@ Route::get('/', 'DashboardController@index');
 Route::get('/semesters/{semester}', 'DashboardController@index');
 Route::get('/semesters/{semester}/{subject}', 'DashboardController@grades');
 
-Route::get('login', 'Auth\LoginController@showLoginForm');
-Route::post('login', 'Auth\LoginController@login');
-Route::post('logout', 'Auth\LoginController@logout');
+Route::get('login', 'LoginController@showLoginForm');
+Route::post('login', 'LoginController@login');
+Route::post('logout', 'LoginController@logout');
 
 Route::get('/assessments/{file}', 'FileController@downloadAssessment');
 Route::post('/attach/{teacher}/{subject}/{to}', 'AttachController@toggleTeacher');
