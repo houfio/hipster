@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\LoginRequest;
 use App\Providers\RouteServiceProvider;
 use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -28,10 +29,9 @@ class LoginController extends Controller
         });
     }
 
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
-        $this->validateLogin($request);
-        $data = $request->only($this->username(), 'password');
+        $data = $request->validated();
         $user = $this->getUser($data['email']);
 
         if (!is_null($user) && Auth::attempt(['email' => $user->encryptedValues['email'], 'password' => $data['password']], $request->filled('remember'))) {
