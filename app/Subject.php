@@ -12,7 +12,7 @@ class Subject extends Model
     protected $primaryKey = 'id';
 
     protected $casts = [
-        'credits' => 'int'
+        'credits' => 'float'
     ];
 
     public function teachers()

@@ -21,8 +21,8 @@ class TagRequest extends FormRequest
     public function messages()
     {
         return [
-            'required' => ':attribute is mandatory!',
-            'max' => ':attribute cannot be longer than :max characters!',
+            'required' => ':attribute is mandatory',
+            'max' => ':attribute cannot be longer than :max characters',
             'unique' => ':attribute already exists'
         ];
     }

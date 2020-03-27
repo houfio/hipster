@@ -13,7 +13,8 @@
     <div class="form-row">
       <div class="form-group col-6 mb-0">
         <label for="exam">Exam</label>
-        <select id="exam" name="exam" class="form-control">
+        <select id="exam" name="exam" class="form-control custom-select">
+          <option disabled selected>Select exam...</option>
           @foreach ($exams as $exam)
             <option value="{{ $exam->id }}" @if($exam->id === old('exam')) selected @endif>
               Subject: {{ $exam->subject->name }} Exam: {{ $exam->name }}

@@ -21,7 +21,7 @@ class SearchRequest extends FormRequest
     public function messages()
     {
         return [
-            'max' => ':attribute cannot be longer than :max characters!'
+            'max' => ':attribute cannot be longer than :max characters'
         ];
     }
 

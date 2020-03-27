@@ -22,9 +22,9 @@ class LoginRequest extends FormRequest
     public function messages()
     {
         return [
-            'required' => ':attribute is mandatory!',
-            'email' => ':attribute must be a email!',
-            'string' => ':attribute must be a string!'
+            'required' => ':attribute is mandatory',
+            'email' => ':attribute must be a email',
+            'string' => ':attribute must be a string'
         ];
     }
 

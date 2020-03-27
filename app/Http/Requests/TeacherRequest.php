@@ -24,9 +24,9 @@ class TeacherRequest extends FormRequest
     public function messages()
     {
         return [
-            'required' => ':attribute is mandatory!',
-            'max' => ':attribute cannot be longer than :max characters!',
-            'email' => ':attribute is not a valid email!'
+            'required' => ':attribute is mandatory',
+            'max' => ':attribute cannot be longer than :max characters',
+            'email' => ':attribute is not a valid email'
         ];
     }
 

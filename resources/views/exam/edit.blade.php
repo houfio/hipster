@@ -19,7 +19,7 @@
       </div>
       <div class="form-group col-4">
         <label for="grade">Grade</label>
-        <input value="{{ $exam->grade }}" type="text" class="form-control" name="grade" id="grade">
+        <input value="{{ $exam->grade }}" type="number" class="form-control" name="grade" id="grade">
       </div>
       <div class="form-group col-4">
         <label for="subject">Subject</label>

@@ -10,8 +10,13 @@
   <div class="d-flex justify-content-between">
     <form id="sort-by" action="{{ action('DeadlineController@index') }}">
       <input type="hidden" name="page" value="{{ $exams->currentPage() }}"/>
-      <div class="input-group">
-        <select onchange="document.getElementById('sort-by').submit()" class="form-control" name="sort" id="sort">
+      <div class="input-group mb-3">
+        <select
+          onchange="document.getElementById('sort-by').submit()"
+          class="form-control custom-select"
+          name="sort"
+          id="sort"
+        >
           @foreach($sortOptions as $key => $value)
             <option value="{{ $key }}" @if($sort === $key) selected @endif>
               {{ $value }}
@@ -20,7 +25,7 @@
         </select>
         <select
           onchange="document.getElementById('sort-by').submit()"
-          class="form-control"
+          class="form-control custom-select"
           name="order"
           id="order"
           @if(!$sort) disabled @endif

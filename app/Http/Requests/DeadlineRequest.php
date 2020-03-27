@@ -23,12 +23,12 @@ class DeadlineRequest extends FormRequest
     public function messages()
     {
         return [
-            'date' => ':attribute must be a date!',
-            'exists' => ':attribute doesn\'t exist in the database!',
-            'finished' => ':attribute must be true or false!',
-            'in' => ':attribute must be on or off!',
-            'required' => ':attribute is mandatory!',
-            'numeric' => ':attribute must be a number!'
+            'date' => ':attribute must be a date',
+            'exists' => ':attribute doesn\'t exist in the database',
+            'finished' => ':attribute must be true or false',
+            'in' => ':attribute must be on or off',
+            'required' => ':attribute is mandatory',
+            'numeric' => ':attribute must be a number'
         ];
     }
 

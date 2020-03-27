@@ -22,7 +22,7 @@
       </div>
       <div class="form-group col-4">
         <label for="period">Period</label>
-        <select class="form-control" name="period" id="period">
+        <select class="form-control custom-select" name="period" id="period">
           @foreach($periods as $period)
             <option value="{{ $period->id }}" @if($period->id === $subject->period_id) selected @endif>
               Period {{ $period->id }}

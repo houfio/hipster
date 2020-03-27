@@ -56,7 +56,7 @@ class AttachController extends Controller
             $subjectTeacher->save();
         }
 
-        $request->session()->flash('status', "$teacher->first_name is now the coordinator of $subject->name!");
+        $request->session()->flash('status', "$teacher->first_name is now the coordinator of $subject->name");
 
         return redirect()->action('SubjectController@edit', ['subject' => $subject->id]);
     }

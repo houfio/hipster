@@ -26,13 +26,13 @@ class ExamRequest extends FormRequest
     public function messages()
     {
         return [
-            'required' => ':attribute is mandatory!',
-            'max' => ':attribute cannot be longer than :max characters!',
-            'min' => ':attribute must be at least :min long!',
-            'numeric' => ':attribute must be a number!',
-            'file' => ':attribute must be a file!',
-            'mimes' => ':attribute must be a zip file!',
-            'in' => ':attribute must be on or off!'
+            'required' => ':attribute is mandatory',
+            'max' => ':attribute cannot be longer than :max characters',
+            'min' => ':attribute must be at least :min long',
+            'numeric' => ':attribute must be a number',
+            'file' => ':attribute must be a file',
+            'mimes' => ':attribute must be a zip file',
+            'in' => ':attribute must be on or off'
         ];
     }
 

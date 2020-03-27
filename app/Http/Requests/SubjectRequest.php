@@ -20,7 +20,7 @@ class SubjectRequest extends FormRequest
     {
         return [
             'description' => 'required|max:255',
-            'credits' => 'required|numeric|max:11',
+            'credits' => 'required|numeric|max:100',
             'name' => "required|unique:subjects,name,{$this->getSubjectId()}|max:45",
             'period' => 'required|numeric|exists:periods,id'
         ];
@@ -29,11 +29,11 @@ class SubjectRequest extends FormRequest
     public function messages()
     {
         return [
-            'required' => ':attribute is mandatory!',
-            'max' => ':attribute cannot be longer than :max characters!',
+            'required' => ':attribute is mandatory',
+            'max' => ':attribute cannot be longer than :max characters',
             'unique' => ':attribute already exists',
-            'numeric' => ':attribute must be a number!',
-            'exists' => ':attribute does not exist!'
+            'numeric' => ':attribute must be a number',
+            'exists' => ':attribute does not exist'
         ];
     }
 
