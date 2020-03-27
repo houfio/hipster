@@ -17,7 +17,10 @@
     </div>
   </form>
   <div class="d-flex justify-content-between">
-    {{ $tags->links() }}
+    <form action="{{ action('DeadlineController@edit', ['deadline' => $exam->id]) }}">
+      <input class="form-control mb-3" placeholder="Search" name="search" value="{{ $search }}"/>
+    </form>
+    {{ $tags->appends(['search' => $search])->links() }}
   </div>
   <ul class="list-group">
     @foreach($tags as $tag)

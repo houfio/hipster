@@ -1,6 +1,6 @@
 <li class="list-group-item d-flex justify-content-between align-items-center">
   {{ $slot }}
-  @if(isset($delete) || isset($edit))
+  @if($actions ?? true)
     <div class="btn-group">
       {{ isset($extra) ? $extra : '' }}
       @if(isset($delete))

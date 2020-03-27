@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exam;
 use App\Http\Requests\DeadlineRequest;
+use App\Http\Requests\SearchRequest;
 use App\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -69,17 +70,23 @@ class DeadlineController extends Controller
         $exam->due_on = $data['due_on'];
 
         $exam->save();
-        $request->session()->flash('status', 'Deadline has been created!');
+        $request->session()->flash('status', 'Deadline has been created');
 
         return redirect()->action('DeadlineController@index');
     }
 
-    public function edit(Exam $deadline)
+    public function edit(SearchRequest $request, Exam $deadline)
     {
+        $data = $request->validated();
+        $search = isset($data['search']) ? $data['search'] : '';
+        $tags = Tag::where('name', 'LIKE', "%$search%")->paginate(10);
+        $attached = $deadline->tags()->get();
+
         return view('deadlines.edit', [
             'exam' => $deadline,
-            'tags' => Tag::paginate(10),
-            'attached' => $deadline->tags()->get()
+            'tags' => $tags,
+            'attached' => $attached,
+            'search' => $search
         ]);
     }
 
@@ -91,7 +98,7 @@ class DeadlineController extends Controller
         $deadline->finished = isset($data['finished']);
 
         $deadline->save();
-        $request->session()->flash('status', "$deadline->name has been finished!");
+        $request->session()->flash('status', "$deadline->name has been updated");
 
         return redirect()->action('DeadlineController@index');
     }

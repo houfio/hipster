@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SearchRequest;
 use App\Http\Requests\TagRequest;
 use Illuminate\Http\Request;
 use App\Tag;
@@ -14,12 +15,15 @@ class TagController extends Controller
         $this->authorizeResource(Tag::class, 'tag');
     }
 
-    public function index()
+    public function index(SearchRequest $request)
     {
-        $tags = Tag::orderBy('created_at', 'desc')->paginate(10);
+        $data = $request->validated();
+        $search = isset($data['search']) ? $data['search'] : '';
+        $tags = Tag::where('name', 'LIKE', "%$search%")->orderBy('created_at', 'desc')->paginate(10);
 
         return view('tags.index', [
-            'tags' => $tags
+            'tags' => $tags,
+            'search' => $search
         ]);
     }
 

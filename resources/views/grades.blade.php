@@ -12,7 +12,7 @@
     </h2>
     <ul class="list-group">
       @forelse($subject->exams as $exam)
-        <x-list-item :id="$exam->id">
+        <x-list-item :id="$exam->id" :actions="false">
           {{ $exam->name }}
           @if($exam->grade)
             <span class="badge @if($exam->passed()) badge-success @else badge-danger @endif">

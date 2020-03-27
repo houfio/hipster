@@ -47,8 +47,6 @@
             id="finished-form-{{ $exam->id }}"
             action="{{ action('DeadlineController@update', ['deadline' => $exam->id]) }}"
           >
-            <input type="hidden" name="due_on" value="{{ $exam->due_on }}"/>
-            <input type="hidden" name="exam" value="{{ $exam->id }}"/>
             <div class="custom-control custom-checkbox checkbox-group-item">
               <input
                 type="checkbox"
@@ -62,6 +60,8 @@
                 Done
               </label>
             </div>
+            <input type="hidden" name="due_on" value="{{ $exam->due_on }}"/>
+            <input type="hidden" name="exam" value="{{ $exam->id }}"/>
             @csrf
             @method('put')
           </form>

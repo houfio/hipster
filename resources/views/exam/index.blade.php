@@ -9,7 +9,7 @@
 @section('content')
   <div class="d-flex justify-content-between">
     <form action="{{ action('ExamController@index') }}">
-      <input class="form-control" placeholder="Search" name="search" value="{{ $search }}"/>
+      <input class="form-control mb-3" placeholder="Search" name="search" value="{{ $search }}"/>
     </form>
     {{ $exams->appends(['search' => $search])->links() }}
   </div>

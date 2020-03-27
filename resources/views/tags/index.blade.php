@@ -15,8 +15,11 @@
 @endsection
 
 @section('content')
-  <div class="d-flex justify-content-end">
-    {{ $tags->links() }}
+  <div class="d-flex justify-content-between">
+    <form action="{{ action('TagController@index') }}">
+      <input class="form-control mb-3" placeholder="Search" name="search" value="{{ $search }}"/>
+    </form>
+    {{ $tags->appends(['search' => $search])->links() }}
   </div>
   <ul class="list-group">
     @forelse($tags as $tag)

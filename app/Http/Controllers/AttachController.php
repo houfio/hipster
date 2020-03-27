@@ -37,10 +37,10 @@ class AttachController extends Controller
 
         if ($deadline->tags->contains($tag)) {
             $deadline->tags()->detach($tag);
-            $request->session()->flash('status', 'Tag detached!');
+            $request->session()->flash('status', "$deadline->name now has the tag $tag->name");
         } else {
             $deadline->tags()->save($tag);
-            $request->session()->flash('status', 'Tag attached!');
+            $request->session()->flash('status', "$deadline->name no longer has the tag $tag->name");
         }
 
         return redirect()->action('DeadlineController@edit', ['deadline' => $deadline->id]);
